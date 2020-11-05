@@ -343,6 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 184065750}
+  - component: {fileID: 184065749}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -350,6 +351,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &184065749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184065748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44eb3a8a09baa4e4bbba7508fd4f083d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelButtons: []
 --- !u!4 &184065750
 Transform:
   m_ObjectHideFlags: 0
@@ -452,6 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 325808491}
+  - component: {fileID: 325808492}
   m_Layer: 0
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -473,6 +488,19 @@ Transform:
   m_Father: {fileID: 911552525}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325808492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325808490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7731d00d04653a64e8e04f955005c056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indexGameplayScene: 4
 --- !u!1 &358822120
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,8 +583,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager_SM, Assembly-CSharp
+      - m_Target: {fileID: 184065749}
+        m_TargetAssemblyTypeName: UIManager_MM, Assembly-CSharp
         m_MethodName: _LanguageButtonClicked
         m_Mode: 3
         m_Arguments:
@@ -1540,8 +1568,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager_SM, Assembly-CSharp
+      - m_Target: {fileID: 184065749}
+        m_TargetAssemblyTypeName: UIManager_MM, Assembly-CSharp
         m_MethodName: _AgeButtonClicked
         m_Mode: 3
         m_Arguments:
