@@ -11,6 +11,9 @@ public class Paint_Script : MonoBehaviour
 
     private bool doOnce = true;
 
+    private int numberOfFile = 0;
+    private string nameFile;
+
     private void Start()
     {
         colorSelected = new Color(1, 1, 1, 1);
@@ -36,7 +39,7 @@ public class Paint_Script : MonoBehaviour
         }*/
 
         // PC
-        if (Input.GetButton("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -50,12 +53,14 @@ public class Paint_Script : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Fire2") && doOnce)
+        if (Input.GetMouseButtonDown(1))
         {
-            doOnce = false;
-            ScreenCapture.CaptureScreenshot(Application.dataPath + "/A" + ".png", 2);
+            numberOfFile++;
+            nameFile = "/A_" + numberOfFile;
+            Debug.Log(nameFile);
+            ScreenCapture.CaptureScreenshot(Application.dataPath + nameFile + ".png", 2);
 
-            Invoke("SaveAt", 3.0f);
+            Invoke("SaveAt", 2.0f);
         }
     }
 
@@ -67,6 +72,6 @@ public class Paint_Script : MonoBehaviour
 
     private void SaveAt()
     {
-        FileUtil.MoveFileOrDirectory(Application.dataPath + "/A" + ".png", Application.dataPath + "/ScreenShots/A" + ".png");
+        FileUtil.MoveFileOrDirectory(Application.dataPath + nameFile + ".png", Application.dataPath + "/ScreenShots" + nameFile + ".png");
     }
 }

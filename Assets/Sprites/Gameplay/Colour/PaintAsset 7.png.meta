@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: 904049b8027ea5847ba6ab2ba44aab6b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4821371318191907084
+    second: PaintAsset 7_0
+  - first:
+      213: -3274415713671895884
+    second: PaintAsset 7_1
+  - first:
+      213: 2869518028204562885
+    second: PaintAsset 7_2
+  - first:
+      213: 4858943852853299482
+    second: PaintAsset 7_3
+  - first:
+      213: 6014820269580902355
+    second: PaintAsset 7_4
+  - first:
+      213: -3600475159244533067
+    second: PaintAsset 7_5
+  - first:
+      213: -8387505124579680119
+    second: PaintAsset 7_6
+  - first:
+      213: -3595955281951916997
+    second: PaintAsset 7_7
+  - first:
+      213: -87089746966456642
+    second: PaintAsset 7_8
+  - first:
+      213: -924149666286584264
+    second: PaintAsset 7_9
+  - first:
+      213: 4865563784583726942
+    second: PaintAsset 7_10
+  - first:
+      213: 7561113745965109010
+    second: PaintAsset 7_11
+  - first:
+      213: -1023493441722342329
+    second: PaintAsset 7_12
+  - first:
+      213: 6022097939417706576
+    second: PaintAsset 7_13
+  - first:
+      213: -5469317148518922737
+    second: PaintAsset 7_14
+  - first:
+      213: 1200673991217849598
+    second: PaintAsset 7_15
+  - first:
+      213: -8319970682814401362
+    second: PaintAsset 7_16
+  - first:
+      213: 7354483644845244399
+    second: PaintAsset 7_17
+  - first:
+      213: 2946391124693306118
+    second: PaintAsset 7_18
+  - first:
+      213: 303938040396128856
+    second: PaintAsset 7_19
+  - first:
+      213: -9150186615875013071
+    second: PaintAsset 7_20
+  - first:
+      213: -7651634927984994166
+    second: PaintAsset 7_21
+  - first:
+      213: -3064718134412755733
+    second: PaintAsset 7_22
+  - first:
+      213: -5433942261735584310
+    second: PaintAsset 7_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PaintAsset 7_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 704
+        height: 986
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe1ae0b45c071db0800000000000000
+      internalID: -4821371318191907084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_1
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1
+        width: 699
+        height: 939
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b421abc140fe82d0800000000000000
+      internalID: -3274415713671895884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_2
+      rect:
+        serializedVersion: 2
+        x: 1516
+        y: 883
+        width: 110
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c956bb717392d720800000000000000
+      internalID: 2869518028204562885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_3
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 857
+        width: 82
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1983ecb0bf6e6340800000000000000
+      internalID: 4858943852853299482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_4
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 809
+        width: 144
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df5034da2fe87350800000000000000
+      internalID: 6014820269580902355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_5
+      rect:
+        serializedVersion: 2
+        x: 2014
+        y: 725
+        width: 248
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b29c963bea880ec0800000000000000
+      internalID: -3600475159244533067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_6
+      rect:
+        serializedVersion: 2
+        x: 2211
+        y: 31
+        width: 441
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 980e8a13788999b80800000000000000
+      internalID: -8387505124579680119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_7
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 660
+        width: 158
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3cf01729b9981ec0800000000000000
+      internalID: -3595955281951916997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_8
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 719
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb65c7826589acef0800000000000000
+      internalID: -87089746966456642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_9
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 581
+        width: 36
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e31bd56c2cc23f0800000000000000
+      internalID: -924149666286584264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_10
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 634
+        width: 227
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e574e14bb74f58340800000000000000
+      internalID: 4865563784583726942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_12
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 452
+        width: 224
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744a2303322dbc1f0800000000000000
+      internalID: -1023493441722342329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_13
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 602
+        width: 188
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050ba916b2ac29350800000000000000
+      internalID: 6022097939417706576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_14
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 216
+        width: 139
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f06c396f7051914b0800000000000000
+      internalID: -5469317148518922737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_15
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 449
+        width: 183
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4279132a6a9a010800000000000000
+      internalID: 1200673991217849598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_18
+      rect:
+        serializedVersion: 2
+        x: 1771
+        y: 374
+        width: 39
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b45b40e1fa3e820800000000000000
+      internalID: 2946391124693306118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_19
+      rect:
+        serializedVersion: 2
+        x: 1855
+        y: 387
+        width: 30
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8522a83990ec73400800000000000000
+      internalID: 303938040396128856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_20
+      rect:
+        serializedVersion: 2
+        x: 1710
+        y: 312
+        width: 346
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1367c3ca0c1040180800000000000000
+      internalID: -9150186615875013071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_21
+      rect:
+        serializedVersion: 2
+        x: 1491
+        y: 84
+        width: 281
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a889b76b29eefc590800000000000000
+      internalID: -7651634927984994166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_22
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 12
+        width: 346
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bec31a5281fe775d0800000000000000
+      internalID: -3064718134412755733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_23
+      rect:
+        serializedVersion: 2
+        x: 2324
+        y: 275
+        width: 136
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd844f9d42c694b0800000000000000
+      internalID: -5433942261735584310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PaintAsset 7_11
+      rect:
+        serializedVersion: 2
+        x: 2307
+        y: 703
+        width: 148
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21fc29634e87ee860800000000000000
+      internalID: 7561113745965109010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
