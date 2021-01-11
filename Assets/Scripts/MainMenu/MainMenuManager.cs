@@ -51,17 +51,7 @@ public class MainMenuManager : MonoBehaviour
 
         uiManager_MM = FindObjectOfType<UIManager_MM>().GetComponent<UIManager_MM>();
 
-        uiManager_MM.UpdateLanguage(indexLanguage);
-
-        if (PlayerPrefs.HasKey("unlockedLevels")) 
-        {
-            Debug.Log("Has Key unlockedLevels, value: " + PlayerPrefs.GetInt("unlockedLevels", 0));
-            uiManager_MM.UpdadeLevelButtons(PlayerPrefs.GetInt("unlockedLevels", 0));
-        }
-        else
-        {
-            uiManager_MM.UpdadeLevelButtons(0);
-        }
+        uiManager_MM.UpdateLanguage(indexLanguage);       
         
     }
 
@@ -70,9 +60,9 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(indexScene);
     }
 
-    public void LoadAsyncGamePlay(int indexLevel)
+    public void LoadAsyncGamePlay(int indexGame)
     {
-        //gameInstance.LevelIndex = indexLevel;
+        gameInstance.GameIndex = indexGame;
         StartCoroutine(StartLoadAsyncScene(indexGameplayScene));
     }
 

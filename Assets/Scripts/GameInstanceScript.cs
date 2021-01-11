@@ -8,6 +8,7 @@ public class GameInstanceScript : MonoBehaviour
     /// Save Variables Between Scene
     /// </summary>
 
+    private int indexGame = 0;
 
     private int indexLanguage = 0;
 
@@ -30,6 +31,15 @@ public class GameInstanceScript : MonoBehaviour
     {
         get { return indexLevelDifficulty; }
         set { indexLevelDifficulty = value; }
+    }
+
+    /// <summary>
+    /// Index of the Adventure Selected
+    /// </summary>
+    public int GameIndex
+    {
+        get { return indexGame; }
+        set { indexGame = value; }
     }
 
 }

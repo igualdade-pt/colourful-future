@@ -9,6 +9,37 @@ public class UIManager_SM : MonoBehaviour
 
     private StartMenuManager startMenuManager;
 
+    [SerializeField]
+    private GameObject informationPanel;
+
+    [SerializeField]
+    private GameObject booksPanel;
+
+    [SerializeField]
+    private GameObject buttonsBooksPanel;
+
+    [SerializeField]
+    private GameObject buttonCloseBooksPanel;
+
+    [SerializeField]
+    private GameObject allBooksPanel;
+
+    [SerializeField]
+    private GameObject[] buttonBookSelectedPanel;
+
+    private int indexBookSelected;
+
+    private void Awake()
+    {
+        informationPanel.SetActive(false);
+        booksPanel.SetActive(false);
+
+        for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
+        {
+            buttonBookSelectedPanel[i].SetActive(false);
+        }
+    }
+
     private void Start()
     {
         startMenuManager = FindObjectOfType<StartMenuManager>().GetComponent<StartMenuManager>();
@@ -21,9 +52,20 @@ public class UIManager_SM : MonoBehaviour
         startMenuManager.LoadAsyncScene(indexScene);
     }
 
-    public void _InformationButtonClicked ()
+    public void _InformationButtonClicked()
     {
+        if (!informationPanel.activeSelf)
+        {
+            informationPanel.SetActive(true);
+        }
+    }
 
+    public void _CloseInformationButtonClicked()
+    {
+        if (informationPanel.activeSelf)
+        {
+            informationPanel.SetActive(false);
+        }
     }
 
     public void _LanguageButtonClicked (int indexScene)
@@ -40,9 +82,53 @@ public class UIManager_SM : MonoBehaviour
         startMenuManager.LoadScene(indexScene);
     }
 
-    public void _BooksButtonClicked ()
+    public void _BooksButtonClicked()
     {
+        if (!booksPanel.activeSelf)
+        {
+            allBooksPanel.SetActive(false);
+            booksPanel.SetActive(true);
+            buttonsBooksPanel.SetActive(true);
+        }
+    }
 
+    public void _CloseBooksButtonClicked()
+    {
+        if (booksPanel.activeSelf)
+        {
+            booksPanel.SetActive(false);
+        }
+    }
+
+    public void _BookButtonSelectedClicked(int indexBook)
+    {
+        if (booksPanel.activeSelf)
+        {
+            buttonsBooksPanel.SetActive(false);
+            buttonCloseBooksPanel.SetActive(false);
+
+            for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
+            {
+                if (i == indexBook)
+                {
+                    buttonBookSelectedPanel[i].SetActive(true);
+                    allBooksPanel.SetActive(true);
+                    indexBookSelected = indexBook;
+                }
+            }
+        }
+    }
+
+    public void _CloseBookButtonSelectedClicked()
+    {
+        if (booksPanel.activeSelf)
+        {
+            allBooksPanel.SetActive(false);
+            buttonBookSelectedPanel[indexBookSelected].SetActive(false);
+            buttonsBooksPanel.SetActive(false);
+            buttonsBooksPanel.SetActive(true);
+            buttonCloseBooksPanel.SetActive(true);
+        }
     }
 
     public void _SoundButtonClicked()
