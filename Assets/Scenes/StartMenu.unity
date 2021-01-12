@@ -1836,13 +1836,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0637947c45850a4784ef5f9776fad35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundButton: {fileID: 359858386}
+  spriteOffOnSound: []
+  buttonCloseBooksPanel: {fileID: 1587499062}
+  buttonBookSelectedPanel:
+  - {fileID: 390093004}
   informationPanel: {fileID: 1938445984}
   booksPanel: {fileID: 1945129820}
   buttonsBooksPanel: {fileID: 26710978}
-  buttonCloseBooksPanel: {fileID: 1587499062}
   allBooksPanel: {fileID: 1622706929}
-  buttonBookSelectedPanel:
-  - {fileID: 390093004}
 --- !u!1 &462517448
 GameObject:
   m_ObjectHideFlags: 0

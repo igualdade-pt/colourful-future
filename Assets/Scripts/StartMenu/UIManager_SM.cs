@@ -9,6 +9,24 @@ public class UIManager_SM : MonoBehaviour
 
     private StartMenuManager startMenuManager;
 
+    private AudioManager audioManager;
+
+    [Header("Buttons")]
+    [Space]
+    [SerializeField]
+    private Button soundButton;
+
+    [SerializeField]
+    private Sprite[] spriteOffOnSound;
+
+    [SerializeField]
+    private GameObject buttonCloseBooksPanel;
+
+    [SerializeField]
+    private GameObject[] buttonBookSelectedPanel;
+
+    [Header("Panels")]
+    [Space]
     [SerializeField]
     private GameObject informationPanel;
 
@@ -19,15 +37,11 @@ public class UIManager_SM : MonoBehaviour
     private GameObject buttonsBooksPanel;
 
     [SerializeField]
-    private GameObject buttonCloseBooksPanel;
-
-    [SerializeField]
     private GameObject allBooksPanel;
 
-    [SerializeField]
-    private GameObject[] buttonBookSelectedPanel;
-
     private int indexBookSelected;
+
+    private bool isSoundActive = true;
 
     private void Awake()
     {
@@ -43,6 +57,8 @@ public class UIManager_SM : MonoBehaviour
     private void Start()
     {
         startMenuManager = FindObjectOfType<StartMenuManager>().GetComponent<StartMenuManager>();
+        //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+        isSoundActive = true;
     }
 
     public void _StartButtonClicked (int indexScene)
@@ -133,7 +149,21 @@ public class UIManager_SM : MonoBehaviour
 
     public void _SoundButtonClicked()
     {
-
+        if (isSoundActive)
+        {
+            //soundButton.image.sprite = spriteOffOnSound[0];
+            Debug.Log( "sound is OFF, value:" + isSoundActive);
+            //audioManager.SetVolume(isSoundActive);
+            isSoundActive = false;
+        }
+        else
+        {
+            //soundButton.image.sprite = spriteOffOnSound[1];
+            Debug.Log("sound is ON, value:" + isSoundActive);
+            //audioManager.SetVolume(isSoundActive);
+            isSoundActive = true;
+        }
+        
     }
 
     public void UpdateLanguage(int indexLanguage)
