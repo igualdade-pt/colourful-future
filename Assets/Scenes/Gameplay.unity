@@ -1021,8 +1021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602f468ea42fa384e8815084c896e4b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayTest: 1
+  mobile: 0
   indexGameSelected: 0
-  gameplayTest: 0
   brush: {fileID: 0}
   colorOfLine:
     serializedVersion: 2
@@ -2842,8 +2843,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602f468ea42fa384e8815084c896e4b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayTest: 1
+  mobile: 0
   indexGameSelected: 2
-  gameplayTest: 0
   brush: {fileID: 0}
   colorOfLine:
     serializedVersion: 2
@@ -5551,8 +5553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602f468ea42fa384e8815084c896e4b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexGameSelected: 1
   gameplayTest: 1
+  mobile: 0
+  indexGameSelected: 1
   brush: {fileID: 5885558827282603598, guid: 9007a070c42ec804b8570dd5cc4d0432, type: 3}
   colorOfLine:
     serializedVersion: 2
@@ -5979,8 +5982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275ed207fde6cf34dae0240232c24d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexGameSelected: 0
   gameplayTest: 1
+  indexGameSelected: 2
   matchColourGamePool: {fileID: 1056187067}
   dragConnectGamePool: {fileID: 1873782705}
   memoryGamePool: {fileID: 1329206160}
@@ -6513,7 +6516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1873782706
 Transform:
   m_ObjectHideFlags: 0

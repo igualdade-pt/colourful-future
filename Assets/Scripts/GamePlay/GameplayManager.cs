@@ -7,14 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
+    [Header("Test Properties")]
+    [Space]
+    [SerializeField]
+    private bool gameplayTest = false;
+
     [Header("--- Game Properties ---")]
     [Space]
 
     [SerializeField]
     private int indexGameSelected = -1;
-
-    [SerializeField]
-    private bool gameplayTest = false;
 
     private UIManager_GM uiManager_GM;
 
@@ -118,29 +120,29 @@ public class GameplayManager : MonoBehaviour
             //Set All Games SetActive False
             matchColourGamePool.SetActive(false);
             dragConnectGamePool.SetActive(false);
-            memoryGamePool.SetActive(false);
+            memoryGamePool.SetActive(false);            
+        }
 
-            // Set Only the Game Selected
-            switch (indexGameSelected)
-            {
-                case 0:
-                    MatchColourStart();
-                    matchColourGamePool.SetActive(true);
-                    break;
+        // Set Only the Game Selected
+        switch (indexGameSelected)
+        {
+            case 0:
+                MatchColourStart();
+                matchColourGamePool.SetActive(true);
+                break;
 
-                case 1:
-                    DragConnectStart();
-                    dragConnectGamePool.SetActive(true);
-                    break;
+            case 1:
+                DragConnectStart();
+                dragConnectGamePool.SetActive(true);
+                break;
 
-                case 2:
-                    MemoryStart();
-                    memoryGamePool.SetActive(true);
-                    break;
+            case 2:
+                MemoryStart();
+                memoryGamePool.SetActive(true);
+                break;
 
-                default:
-                    break;
-            }
+            default:
+                break;
         }
     }
 

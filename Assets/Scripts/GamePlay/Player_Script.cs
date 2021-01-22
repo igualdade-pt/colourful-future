@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class Player_Script : MonoBehaviour
 {
+    [Header("Test Properties")]
+    [Space]
+    [SerializeField]
+    private bool gameplayTest = false;
+
+    [SerializeField]
+    private bool mobile = false;
+
     [Header("Player Properties")]
     [Space]
     [SerializeField]
     private int indexGameSelected = -1;
-
-    [SerializeField]
-    private bool gameplayTest = false;
 
     private GameInstanceScript gameInstance;
 
@@ -133,35 +138,47 @@ public class Player_Script : MonoBehaviour
     // ************ Match Color
     private void MatchColorGameUpdate()
     {
-        // MOBILE
-        /*if (Input.touchCount > 0)
+        switch (mobile)
         {
-            Touch touch = Input.GetTouch(0);
-            var ray = Camera.main.ScreenToWorldPoint(touch.position);
+            case true:
+                // MOBILE
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(touch.position);
 
-            RaycastHit2D hit = Physics2D.Raycast(ray, -Vector2.up);
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
 
-            if (hit.collider != null)
-            {
-                hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
-                Debug.Log(hit.collider);
-            }
-        }*/
+                        if (hit.collider != null)
+                        {
+                            hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
+                            Debug.Log(hit.collider);
+                        }
+                    }
+                }
 
-        // PC
-        if (Input.GetMouseButtonDown(0))
-        {
-            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                break;
 
-            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-            Debug.DrawLine(ray, ray, Color.red);
+            case false:
+                // PC
+                if (Input.GetMouseButtonDown(0))
+                 {
+                     var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (hit.collider != null)
-            {
-                hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
-                Debug.Log(hit.collider);
-            }
-        }
+                     RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                     Debug.DrawLine(ray, ray, Color.red);
+
+                     if (hit.collider != null)
+                     {
+                         hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
+                         Debug.Log(hit.collider);
+                     }
+                 }
+
+                break;
+        }      
     }
 
     public void _ColorClicked(Button button)
@@ -174,68 +191,114 @@ public class Player_Script : MonoBehaviour
     // ************* Drag & Connect
     private void DragConnectUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        switch (mobile)
         {
-            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-            Debug.DrawLine(ray, ray, Color.red);
-
-            /*if (hit.collider != null)
-            {
-                if (hit.collider.tag == "MazeBeginning")
-                {*/
-                CreateBrush();
-                /*}
-            }*/
-        }
-        else if (Input.GetMouseButton(0) && currentLineRenderer != null)
-        {
-            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-            Debug.DrawLine(ray, ray, Color.red);
-
-            /*if (hit.collider != null)
-            {
-                if (hit.collider.tag == "Maze" || hit.collider.tag == "MazeBeginning")
-                {*/
-                    PointToMousePos();
-                /*}
-                else if (hit.collider.tag == "MazeEnd")
+            case true:
+                // MOBILE
+                if (Input.touchCount > 0)
                 {
-                    // WIN
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                        Debug.DrawLine(ray, ray, Color.red);
+
+                        CreateBrush();
+                    }
+                    else if (touch.phase == TouchPhase.Moved && currentLineRenderer != null)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                        Debug.DrawLine(ray, ray, Color.red);
+
+                        PointToMousePos();
+                    }
+                    else if (touch.phase == TouchPhase.Ended && currentLineRenderer != null)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                        Debug.DrawLine(ray, ray, Color.red);
+
+                        currentLineRenderer.gameObject.SetActive(false);
+                        Destroy(currentLineRenderer.gameObject);
+
+                        currentLineRenderer = null;
+                    }
                 }
-            }
-            else
-            {
-                //LOST
-                currentLineRenderer.gameObject.SetActive(false);
-                currentLineRenderer = null;
-            }*/
-        }
-        else if (Input.GetMouseButtonUp(0) && currentLineRenderer != null)
-        {
-            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-            Debug.DrawLine(ray, ray, Color.red);
+                break;
 
-            /*if (hit.collider != null)
-            {
-                if (hit.collider.tag != "MazeEnd")
-                {*/
-                    currentLineRenderer.gameObject.SetActive(false);
+            case false:
+                // PC
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                    Debug.DrawLine(ray, ray, Color.red);
+
+                    //if (hit.collider != null)
+                    //{
+                    //if (hit.collider.tag == "MazeBeginning")
+                        //{
+                        CreateBrush();
+                    //}
+                    //}
+                }
+                else if (Input.GetMouseButton(0) && currentLineRenderer != null)
+                {
+                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                    Debug.DrawLine(ray, ray, Color.red);
+
+                    //if (hit.collider != null)
+                    //{
+                    //if (hit.collider.tag == "Maze" || hit.collider.tag == "MazeBeginning")
+                        //{
+                        PointToMousePos();
+                    //}
+                    //else if (hit.collider.tag == "MazeEnd")
+                    //{
+                    // WIN
+                    //}
+                    //}
+                    //else
+                    //{
+                    //LOST
+                    //currentLineRenderer.gameObject.SetActive(false);
+                    //currentLineRenderer = null;
+                    //}
+                }
+                else if (Input.GetMouseButtonUp(0) && currentLineRenderer != null)
+                {
+                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                    Debug.DrawLine(ray, ray, Color.red);
+
+                    //if (hit.collider != null)
+                    //{
+                    //if (hit.collider.tag != "MazeEnd")
+                        //{
+                        currentLineRenderer.gameObject.SetActive(false);
                     Destroy(currentLineRenderer.gameObject);
-                /*}
-            }*/
-            currentLineRenderer = null;
+                    //}
+                    //}
+                    currentLineRenderer = null;
+                }
+
+                break;
         }
     }
 
     void CreateBrush()
     {
-        
+
         GameObject brushInstance = Instantiate(brush);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
         currentLineRenderer.colorGradient = colorOfLine;
@@ -264,39 +327,51 @@ public class Player_Script : MonoBehaviour
             lastPos = mousePos;
         }
     }
-    
+
 
 
     // ******************** Memory Game
     private void MemoryGameUpdate()
     {
-        // MOBILE
-        /*if (Input.touchCount > 0)
+        switch (mobile)
         {
-            Touch touch = Input.GetTouch(0);
-            var ray = Camera.main.ScreenToWorldPoint(touch.position);
+            case true:
+                // MOBILE
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(ray, -Vector2.up);
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                        Debug.DrawLine(ray, ray, Color.red);
 
-            if (hit.collider != null)
-            {
-                hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
-                Debug.Log(hit.collider);
-            }
-        }*/
+                        if (hit.collider != null)
+                        {
+                            hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
+                        }
+                    }
+                }
 
-        // PC
-        if (Input.GetMouseButtonDown(0))
-        {
-            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                break;
 
-            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-            Debug.DrawLine(ray, ray, Color.red);
+            case false:
+                // PC
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (hit.collider != null)
-            {
-                hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
-            }
+                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                    Debug.DrawLine(ray, ray, Color.red);
+
+                    if (hit.collider != null)
+                    {
+                        hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
+                    }
+                }
+
+                break;
         }
     }
 
