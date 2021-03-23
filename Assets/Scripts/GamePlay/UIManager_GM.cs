@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager_GM : MonoBehaviour
 {
@@ -50,5 +51,10 @@ public class UIManager_GM : MonoBehaviour
     public void SetGameEndedPanel(bool value)
     {
         gameEndedPanel.SetActive(value);
+    }
+
+    public void _Return()
+    {
+        SceneManager.LoadScene(3);
     }
 }

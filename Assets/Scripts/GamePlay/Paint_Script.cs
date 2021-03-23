@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Paint_Script : MonoBehaviour
 {
 
-    private Color colorSelected;
+/*    private Color colorSelected;
 
     private bool doOnce = true;
 
@@ -24,7 +24,7 @@ public class Paint_Script : MonoBehaviour
     private void Update()
     {
         // MOBILE
-        /*if (Input.touchCount > 0)
+        *//*if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             var ray = Camera.main.ScreenToWorldPoint(touch.position);
@@ -36,7 +36,7 @@ public class Paint_Script : MonoBehaviour
                 hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
                 Debug.Log(hit.collider);
             }
-        }*/
+        }*//*
 
         // PC
         if (Input.GetMouseButtonDown(0))
@@ -73,5 +73,5 @@ public class Paint_Script : MonoBehaviour
     private void SaveAt()
     {
         FileUtil.MoveFileOrDirectory(Application.dataPath + nameFile + ".png", Application.dataPath + "/ScreenShots" + nameFile + ".png");
-    }
+    }*/
 }
