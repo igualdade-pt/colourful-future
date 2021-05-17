@@ -13,16 +13,23 @@ public class Player_Script : MonoBehaviour
     [SerializeField]
     private bool mobile = false;
 
+    private GameplayManager gameplayManager;
+
     [Header("Player Properties")]
     [Space]
     [SerializeField]
     private int indexGameSelected = -1;
+
+    [SerializeField]
+    private Transform brushLinePool;
 
     private GameInstanceScript gameInstance;
 
     private int indexLanguage = 0;
 
     private int indexDifficulty = 0;
+
+    private bool gameStarted = false;
 
 
     // **** Match Color ****
@@ -109,6 +116,8 @@ public class Player_Script : MonoBehaviour
             }
         }
 
+        gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
+
     }
 
 
@@ -164,21 +173,21 @@ public class Player_Script : MonoBehaviour
             case false:
                 // PC
                 if (Input.GetMouseButtonDown(0))
-                 {
-                     var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                {
+                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                     RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                     Debug.DrawLine(ray, ray, Color.red);
+                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                    Debug.DrawLine(ray, ray, Color.red);
 
-                     if (hit.collider != null)
-                     {
-                         hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
-                         Debug.Log(hit.collider);
-                     }
-                 }
+                    if (hit.collider != null)
+                    {
+                        hit.collider.gameObject.GetComponent<SpriteRenderer>().color = colorSelected;
+                        Debug.Log(hit.collider);
+                    }
+                }
 
                 break;
-        }      
+        }
     }
 
     public void _ColorClicked(Button button)
@@ -191,134 +200,128 @@ public class Player_Script : MonoBehaviour
     // ************* Drag & Connect
     private void DragConnectUpdate()
     {
-        switch (mobile)
+        if (gameStarted)
         {
-            case true:
-                // MOBILE
-                if (Input.touchCount > 0)
-                {
-                    Touch touch = Input.GetTouch(0);
-                    if (touch.phase == TouchPhase.Began)
+            switch (mobile)
+            {
+                case true:
+                    // MOBILE
+                    if (Input.touchCount > 0)
                     {
-                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        Touch touch = Input.GetTouch(0);
+                        if (touch.phase == TouchPhase.Began)
+                        {
+                            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                        Debug.DrawLine(ray, ray, Color.red);
+                            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                            Debug.DrawLine(ray, ray, Color.red);
 
-                        CreateBrush();
+                            CreateBrush();
+                        }
+                        else if (touch.phase == TouchPhase.Moved && currentLineRenderer != null)
+                        {
+                            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                            Debug.DrawLine(ray, ray, Color.red);
+
+                            PointToMousePos();
+                        }
+                        else if (touch.phase == TouchPhase.Ended && currentLineRenderer != null)
+                        {
+                            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                            Debug.DrawLine(ray, ray, Color.red);
+
+                            currentLineRenderer.gameObject.SetActive(false);
+                            Destroy(currentLineRenderer.gameObject);
+
+                            currentLineRenderer = null;
+                        }
                     }
-                    else if (touch.phase == TouchPhase.Moved && currentLineRenderer != null)
+
+                    break;
+
+                case false:
+                    // PC
+                    if (Input.GetMouseButtonDown(0))
                     {
                         var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                         RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                        Debug.DrawLine(ray, ray, Color.red);
+
+                        if (hit.collider != null)
+                        {
+                            if (hit.collider.tag == "CharacterCard")
+                            {
+                                CreateBrush();
+                            }
+                        }
+                    }
+                    else if (Input.GetMouseButton(0) && currentLineRenderer != null)
+                    {
+                        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
 
                         PointToMousePos();
+
                     }
-                    else if (touch.phase == TouchPhase.Ended && currentLineRenderer != null)
+                    else if (Input.GetMouseButtonUp(0) && currentLineRenderer != null)
                     {
                         var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                         RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                        Debug.DrawLine(ray, ray, Color.red);
 
-                        currentLineRenderer.gameObject.SetActive(false);
-                        Destroy(currentLineRenderer.gameObject);
+                        if (hit.collider != null)
+                        {
+                            if (hit.collider.tag == "ConnectCard")
+                            {
+                                gameplayManager.CheckingCard(hit.collider.gameObject);
+                            }
+                            currentLineRenderer.gameObject.SetActive(false);
+                            Destroy(currentLineRenderer.gameObject);
 
+                        }
+                        else
+                        {
+                            currentLineRenderer.gameObject.SetActive(false);
+                            Destroy(currentLineRenderer.gameObject);
+                        }
                         currentLineRenderer = null;
                     }
-                }
 
-                break;
-
-            case false:
-                // PC
-                if (Input.GetMouseButtonDown(0))
-                {
-                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                    Debug.DrawLine(ray, ray, Color.red);
-
-                    //if (hit.collider != null)
-                    //{
-                    //if (hit.collider.tag == "MazeBeginning")
-                        //{
-                        CreateBrush();
-                    //}
-                    //}
-                }
-                else if (Input.GetMouseButton(0) && currentLineRenderer != null)
-                {
-                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                    Debug.DrawLine(ray, ray, Color.red);
-
-                    //if (hit.collider != null)
-                    //{
-                    //if (hit.collider.tag == "Maze" || hit.collider.tag == "MazeBeginning")
-                        //{
-                        PointToMousePos();
-                    //}
-                    //else if (hit.collider.tag == "MazeEnd")
-                    //{
-                    // WIN
-                    //}
-                    //}
-                    //else
-                    //{
-                    //LOST
-                    //currentLineRenderer.gameObject.SetActive(false);
-                    //currentLineRenderer = null;
-                    //}
-                }
-                else if (Input.GetMouseButtonUp(0) && currentLineRenderer != null)
-                {
-                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                    Debug.DrawLine(ray, ray, Color.red);
-
-                    //if (hit.collider != null)
-                    //{
-                    //if (hit.collider.tag != "MazeEnd")
-                        //{
-                        currentLineRenderer.gameObject.SetActive(false);
-                    Destroy(currentLineRenderer.gameObject);
-                    //}
-                    //}
-                    currentLineRenderer = null;
-                }
-
-                break;
+                    break;
+            }
         }
     }
 
-    void CreateBrush()
+    private void CreateBrush()
     {
 
-        GameObject brushInstance = Instantiate(brush);
+        GameObject brushInstance = Instantiate(brush, brushLinePool);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
         currentLineRenderer.colorGradient = colorOfLine;
 
-        //2 points to start a line renderer 
+        //3 points to start a line renderer 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        currentLineRenderer.SetPosition(0, mousePos);
+
+        currentLineRenderer.SetPosition(0, new Vector2(0, mousePos.y));
         currentLineRenderer.SetPosition(1, mousePos);
+        currentLineRenderer.positionCount++;
+        currentLineRenderer.SetPosition(2, mousePos);
 
     }
 
-    void AddAPoint(Vector2 pointPos)
+    private void AddAPoint(Vector2 pointPos)
     {
-        //currentLineRenderer.positionCount++;
-        int positionIndex = currentLineRenderer.positionCount - 1;
-        currentLineRenderer.SetPosition(positionIndex, pointPos);
+        currentLineRenderer.SetPosition(1, new Vector2(0, pointPos.y));
+        currentLineRenderer.SetPosition(2, pointPos);
     }
 
-    void PointToMousePos()
+    private void PointToMousePos()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (lastPos != mousePos)
@@ -329,18 +332,37 @@ public class Player_Script : MonoBehaviour
     }
 
 
-
     // ******************** Memory Game
     private void MemoryGameUpdate()
     {
-        switch (mobile)
+        if (gameStarted)
         {
-            case true:
-                // MOBILE
-                if (Input.touchCount > 0)
-                {
-                    Touch touch = Input.GetTouch(0);
-                    if (touch.phase == TouchPhase.Began)
+            switch (mobile)
+            {
+                case true:
+                    // MOBILE
+                    if (Input.touchCount > 0)
+                    {
+                        Touch touch = Input.GetTouch(0);
+                        if (touch.phase == TouchPhase.Began)
+                        {
+                            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                            RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                            Debug.DrawLine(ray, ray, Color.red);
+
+                            if (hit.collider != null)
+                            {
+                                hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
+                            }
+                        }
+                    }
+
+                    break;
+
+                case false:
+                    // PC
+                    if (Input.GetMouseButtonDown(0))
                     {
                         var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -352,27 +374,19 @@ public class Player_Script : MonoBehaviour
                             hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
                         }
                     }
-                }
 
-                break;
-
-            case false:
-                // PC
-                if (Input.GetMouseButtonDown(0))
-                {
-                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                    Debug.DrawLine(ray, ray, Color.red);
-
-                    if (hit.collider != null)
-                    {
-                        hit.collider.gameObject.GetComponent<Cards_Script>().CardClicked();
-                    }
-                }
-
-                break;
+                    break;
+            }
         }
+    }
+
+
+    /// <summary>
+    /// Game Started?
+    /// </summary>
+    public void GameStarted(bool value)
+    {
+        gameStarted = value;
     }
 
 }

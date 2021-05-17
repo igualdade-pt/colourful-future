@@ -34,7 +34,7 @@ public class GameInstanceScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Index of the Adventure Selected
+    /// Index of the Game Selected
     /// </summary>
     public int GameIndex
     {

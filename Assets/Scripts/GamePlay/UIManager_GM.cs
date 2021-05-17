@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager_GM : MonoBehaviour
 {
@@ -10,10 +11,17 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private GameObject gameEndedPanel;
 
+    [SerializeField]
+    private Text attemptsRemainText;
+
+    [SerializeField]
+    private Text timerRemainText;
+
     private void Start()
     {
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
         gameEndedPanel.SetActive(false);
+        timerRemainText.gameObject.SetActive(false);
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -56,5 +64,28 @@ public class UIManager_GM : MonoBehaviour
     public void _Return()
     {
         SceneManager.LoadScene(3);
+    }
+
+    public void UpdateAttempts(int value)
+    {
+        attemptsRemainText.text = value.ToString();
+    
+    }
+
+    public void UpdateTimer(int min, int sec)
+    {        
+        if (sec < 10)
+        {
+            timerRemainText.text = min.ToString() + ":0" + sec.ToString();
+        }
+        else
+        {
+            timerRemainText.text = min.ToString() + ":" + sec.ToString();
+        }        
+    }
+
+    public void SetTimerActive(bool value)
+    {
+        timerRemainText.gameObject.SetActive(value);
     }
 }

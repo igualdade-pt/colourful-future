@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7533047853907833944
+--- !u!1 &5371722774313409620
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7533047853907833923}
-  - component: {fileID: 7533047853907833924}
-  - component: {fileID: 5729260909959280006}
-  - component: {fileID: 7533047853907833925}
-  - component: {fileID: 7533047853907833926}
-  - component: {fileID: 7533047853907833927}
+  - component: {fileID: 5371722774313409615}
+  - component: {fileID: 5371722774313409608}
+  - component: {fileID: 7891606216089345418}
+  - component: {fileID: 2357597807993607644}
+  - component: {fileID: 5371722774313409609}
+  - component: {fileID: 5371722774313409610}
+  - component: {fileID: 6322997932082684610}
   m_Layer: 0
-  m_Name: Card
-  m_TagString: Cards
+  m_Name: CardCharacterConnect
+  m_TagString: CharacterCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7533047853907833923
+--- !u!4 &5371722774313409615
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
+  m_GameObject: {fileID: 5371722774313409620}
   m_LocalRotation: {x: -0.043619405, y: 0, z: 0, w: 0.9990483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -5, y: 0, z: 0}
---- !u!212 &7533047853907833924
+--- !u!212 &5371722774313409608
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
+  m_GameObject: {fileID: 5371722774313409620}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,14 +87,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5729260909959280006
+--- !u!95 &7891606216089345418
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
+  m_GameObject: {fileID: 5371722774313409620}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 835a5943ea886cf42a36a4f0569772f6, type: 2}
@@ -105,30 +106,56 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &7533047853907833925
+--- !u!61 &2357597807993607644
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371722774313409620}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1.75}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1.75}
+  m_EdgeRadius: 0
+--- !u!58 &5371722774313409609
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
-  m_Enabled: 1
+  m_GameObject: {fileID: 5371722774313409620}
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
---- !u!50 &7533047853907833926
+  m_Radius: 0.875
+--- !u!50 &5371722774313409610
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
+  m_GameObject: {fileID: 5371722774313409620}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -142,16 +169,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7533047853907833927
+--- !u!114 &6322997932082684610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533047853907833944}
+  m_GameObject: {fileID: 5371722774313409620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea40b03777f51743ba0c3e5d8d18420, type: 3}
+  m_Script: {fileID: 11500000, guid: 65e8cb20124695e4cac1ebd1176f35d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardsFaces:
@@ -162,5 +189,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 90f5d1e779f65d94a9a7963a288013d7, type: 3}
   - {fileID: 21300000, guid: 7c8d1bdce4c5568428b880c87c79401c, type: 3}
   - {fileID: 21300000, guid: c88ce653578ec524190fd2695ebf0e46, type: 3}
+  firstSetOfCards: []
+  secondSetOfCards: []
+  thirdSetOfCards: []
   cardBack: {fileID: 21300000, guid: ac2f5f0925d3ed04193d071c251337bd, type: 3}
-  myAnimator: {fileID: 5729260909959280006}
+  myAnimator: {fileID: 7891606216089345418}
