@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ConnectCards_Script : MonoBehaviour
 {
+    [Header("Properties")]
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -29,24 +31,15 @@ public class ConnectCards_Script : MonoBehaviour
 
     private bool canFlip = true;
 
-/*    private GameplayManager gameplayManager;
-
-    private bool remainVisible = false;
-
-    private bool gameStarted = false;*/
 
     [Header("Animation Card")]
     [SerializeField]
     private Animator myAnimator;
 
 
-    private void Awake()
-    {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
     private void Start()
     {
+        spriteRenderer.sprite = cardBack;
         canFlip = true;
 
         // Initialize the elements.
@@ -83,7 +76,7 @@ public class ConnectCards_Script : MonoBehaviour
     {
         if (spriteRenderer.sprite == cardBack) // Turn Face
         {
-            spriteRenderer.sprite = cardsFaces[cardIndex];
+            spriteRenderer.sprite = cardsFacesByType[cardGroupIndex][cardIndex];
         }
         else // Turn Back
         {

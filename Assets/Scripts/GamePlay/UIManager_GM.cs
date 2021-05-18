@@ -15,13 +15,18 @@ public class UIManager_GM : MonoBehaviour
     private Text attemptsRemainText;
 
     [SerializeField]
+    private Text correctRemainText;
+
+    [SerializeField]
     private Text timerRemainText;
 
+    private int totalCorrectMoves;
     private void Start()
     {
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
         gameEndedPanel.SetActive(false);
         timerRemainText.gameObject.SetActive(false);
+        correctRemainText.gameObject.SetActive(false);
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -69,7 +74,12 @@ public class UIManager_GM : MonoBehaviour
     public void UpdateAttempts(int value)
     {
         attemptsRemainText.text = value.ToString();
-    
+    }
+
+    public void UpdateCorrectsMoves(int value)
+    {
+        correctRemainText.text = value.ToString() + "/" + totalCorrectMoves.ToString();
+
     }
 
     public void UpdateTimer(int min, int sec)
@@ -87,5 +97,15 @@ public class UIManager_GM : MonoBehaviour
     public void SetTimerActive(bool value)
     {
         timerRemainText.gameObject.SetActive(value);
+    }
+
+    public void SetCorrectMovesTextActive(bool value)
+    {
+        correctRemainText.gameObject.SetActive(value);
+    }
+
+    public void SetTotalCorrectMovesTextActive(int value)
+    {
+        totalCorrectMoves = value;
     }
 }

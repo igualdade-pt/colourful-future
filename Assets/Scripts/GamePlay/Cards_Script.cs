@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Cards_Script : MonoBehaviour
 {
+    [Header("Properties")]
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
@@ -40,13 +42,9 @@ public class Cards_Script : MonoBehaviour
     private Animator myAnimator;
 
 
-    private void Awake()
-    {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
     private void Start()
     {
+        spriteRenderer.sprite = cardBack;
         canFlip = true;
 
         // Initialize the elements.
@@ -93,7 +91,7 @@ public class Cards_Script : MonoBehaviour
     {
         if (spriteRenderer.sprite == cardBack) // Turn Face
         {
-            spriteRenderer.sprite = cardsFaces[cardIndex];
+            spriteRenderer.sprite = cardsFacesByType[cardGroupIndex][cardIndex];
         }
         else // Turn Back
         {

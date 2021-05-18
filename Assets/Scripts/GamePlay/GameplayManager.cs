@@ -12,6 +12,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private bool gameplayTest = false;
 
+    [SerializeField]
+    private int indexDifficultyTEST;
+
     [Header("--- Game Properties ---")]
     [Space]
 
@@ -111,6 +114,8 @@ public class GameplayManager : MonoBehaviour
 
     private int numberOfRightConnects;
 
+    private int totalNumberOfRightConnects;
+
     private int numberOfAttemptsToConnect;
 
     private int sec;
@@ -136,7 +141,10 @@ public class GameplayManager : MonoBehaviour
     private GameObject cardPool;
 
     [SerializeField]
-    private float multiplierXYForMemoryGame = 1.8f;
+    private float multiplierXForMemoryGame = 1.8f;
+
+    [SerializeField]
+    private float multiplierYForMemoryGame = 2.2f;
 
     [SerializeField]
     private int numberOfCardsFaces = 7;
@@ -220,6 +228,10 @@ public class GameplayManager : MonoBehaviour
             dragConnectGamePool.SetActive(false);
             memoryGamePool.SetActive(false);
         }
+        else
+        {
+            indexDifficulty = indexDifficultyTEST;
+        }
 
         uiManager_GM = FindObjectOfType<UIManager_GM>().GetComponent<UIManager_GM>();
 
@@ -232,26 +244,48 @@ public class GameplayManager : MonoBehaviour
                 break;
 
             case 1:
-                numberOfConnectCards = numberOfConnectCardsByDifficulty[0];
-                numberOfAttemptsToConnect = numberOfAttemptsToConnectByDifficulty[0];
-                numberOfRightConnects = numberOfRightConnectsByDifficulty[0];
-                min = timerByDifficulty[0];
-                sec = timerByDifficulty[0 + 1];
+                numberOfConnectCards = numberOfConnectCardsByDifficulty[indexDifficulty];
+                numberOfAttemptsToConnect = numberOfAttemptsToConnectByDifficulty[indexDifficulty];
+                totalNumberOfRightConnects = numberOfRightConnectsByDifficulty[indexDifficulty];
+                numberOfRightConnects = totalNumberOfRightConnects;
+                switch (indexDifficulty)  // TIMER
+                {
+                    case 0:
+                        min = timerByDifficulty[0];
+                        sec = timerByDifficulty[1];
+                        break;
+
+                    case 1:
+                        min = timerByDifficulty[2];
+                        sec = timerByDifficulty[3];
+                        break;
+                    default:
+                        min = timerByDifficulty[0];
+                        sec = timerByDifficulty[1];
+                        break;
+                }
+
                 uiManager_GM.UpdateAttempts(numberOfAttemptsToConnect);
+
                 uiManager_GM.SetTimerActive(true);
                 uiManager_GM.UpdateTimer(min, sec);
+                
+                uiManager_GM.SetTotalCorrectMovesTextActive(totalNumberOfRightConnects);
+                uiManager_GM.SetCorrectMovesTextActive(true);
+                uiManager_GM.UpdateCorrectsMoves(0);
+
                 dragConnectGamePool.SetActive(true);
                 DragConnectStart();
                 StartCoroutine(CountdownSec());
                 break;
 
             case 2:
-                numberOfCards = numberOfCardsByDifficulty[0];
-                numberOfAttempts = numberOfAttemptsByDifficulty[0];
+                numberOfCards = numberOfCardsByDifficulty[indexDifficulty];
+                numberOfAttempts = numberOfAttemptsByDifficulty[indexDifficulty];
                 uiManager_GM.UpdateAttempts(numberOfAttempts);
                 memoryGamePool.SetActive(true);
                 MemoryStart();
-                StartCoroutine(WaitToFlipCards(timeToFlipCardsByDifficulty[0]));
+                StartCoroutine(WaitToFlipCards(timeToFlipCardsByDifficulty[indexDifficulty]));
                 numberOfRightPairs = 0;
                 break;
 
@@ -337,7 +371,7 @@ public class GameplayManager : MonoBehaviour
         int indexGoupSelected = cards[randomCard].CardGroupIndex;
         while (indexGoupSelected == cards[randomCard].CardGroupIndex)
         {
-            indexGoupSelected = Random.Range(0, 2);
+            indexGoupSelected = Random.Range(0, 3);
         }
 
         Debug.Log("INDEX CARD: " + indexSelected + " , " + "GROUP INDEX: " + indexGoupSelected);
@@ -361,8 +395,10 @@ public class GameplayManager : MonoBehaviour
         if (selectedCharacterIndexes[numberOfMoves] == card.CardIndex)
         {
             numberOfRightConnects--;
+            uiManager_GM.UpdateCorrectsMoves(totalNumberOfRightConnects - numberOfRightConnects);
             if (numberOfRightConnects <= 0)
             {
+                uiManager_GM.UpdateCorrectsMoves(totalNumberOfRightConnects);
                 uiManager_GM.SetGameEndedPanel(true);
             }
             else
@@ -564,7 +600,7 @@ public class GameplayManager : MonoBehaviour
                                     Debug.Log(selectedCharacterFailedIndexes[j]);
                                     if (randomCardIndex == selectedCharacterFailedIndexes[j])
                                     {
-                                        randomCard = l;                                        
+                                        randomCard = l;
                                         findOther = false;
                                         selectedCharacterFailedIndexes.RemoveAt(j);
                                         break;
@@ -579,7 +615,7 @@ public class GameplayManager : MonoBehaviour
                                 {
                                     break;
                                 }
-                            }                            
+                            }
                         }
                         findIndex = false;
                     }
@@ -630,8 +666,17 @@ public class GameplayManager : MonoBehaviour
             cardsFace.Remove(x);
         }
 
-        rows = Mathf.CeilToInt(numberOfCards / 3f);
-        cols = 3;
+        if (numberOfCards % 3 != 0)
+        {
+            rows = Mathf.CeilToInt(numberOfCards / 2f);
+            cols = 2;
+        }
+        else
+        {
+            rows = Mathf.CeilToInt(numberOfCards / 3f);
+            cols = 3;
+        }
+
 
         int numbersOfCardsCreated = 0;
         float correctX = 0;
@@ -641,25 +686,31 @@ public class GameplayManager : MonoBehaviour
             increaseY = -0.5f;
         }
 
+        if (cols % 3 != 0)
+        {
+            correctX = 0.5f;
+            increaseY = -0.5f;
+        }
 
         for (int y = 0; y < rows; y++)
         {
-            if (y == rows - 1)
+            /*if (y == rows - 1)
             {
                 cols = numberOfCards - numbersOfCardsCreated;
-                if (cols % 2 == 0)
+                if (cols % 3 != 0)
                 {
                     correctX = 0.5f;
                 }
-            }
+            }*/
 
             for (int x = 0; x < cols; x++)
             {
                 randomIndex = Random.Range(0, cardIndexes.Count);
-                Vector3 position = new Vector3((cols / 2 - x - correctX) * multiplierXYForMemoryGame, (rows / 2 - y + increaseY) * multiplierXYForMemoryGame, 0);
+                Vector3 position = new Vector3((cols / 2 - x - correctX) * multiplierXForMemoryGame, (rows / 2 - y + increaseY) * multiplierYForMemoryGame, 0);
                 var temp = Instantiate(card, position, Quaternion.Euler(-5, 0, 0), cardPool.transform); // FIX ROTATION
                 numbersOfCardsCreated++;
                 temp.GetComponent<Cards_Script>().CardIndex = cardIndexes[randomIndex];
+                temp.GetComponent<Cards_Script>().CardGroupIndex = Random.Range(0, 3);
                 temp.GetComponent<Cards_Script>().SetGameplayManager(this);
                 temp.GetComponent<Cards_Script>().FlipCards(false);
                 cardIndexes.Remove(cardIndexes[randomIndex]);
