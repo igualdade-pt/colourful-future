@@ -172,6 +172,8 @@ public class GameplayManager : MonoBehaviour
 
     private int numberOfCardsRevealed = 0;
 
+    private Cards_Script[] cardsAdded;
+
     private List<int> cardIndexes;
 
     private List<Cards_Script> cardsRevealed = new List<Cards_Script>(2);
@@ -269,13 +271,15 @@ public class GameplayManager : MonoBehaviour
 
                 uiManager_GM.SetTimerActive(true);
                 uiManager_GM.UpdateTimer(min, sec);
-                
+
                 uiManager_GM.SetTotalCorrectMovesTextActive(totalNumberOfRightConnects);
                 uiManager_GM.SetCorrectMovesTextActive(true);
                 uiManager_GM.UpdateCorrectsMoves(0);
 
                 dragConnectGamePool.SetActive(true);
                 DragConnectStart();
+                playerScript = FindObjectOfType<Player_Script>().GetComponent<Player_Script>();
+                playerScript.GameStarted(true);
                 StartCoroutine(CountdownSec());
                 break;
 
@@ -285,6 +289,7 @@ public class GameplayManager : MonoBehaviour
                 uiManager_GM.UpdateAttempts(numberOfAttempts);
                 memoryGamePool.SetActive(true);
                 MemoryStart();
+                playerScript = FindObjectOfType<Player_Script>().GetComponent<Player_Script>();
                 StartCoroutine(WaitToFlipCards(timeToFlipCardsByDifficulty[indexDifficulty]));
                 numberOfRightPairs = 0;
                 break;
@@ -293,8 +298,8 @@ public class GameplayManager : MonoBehaviour
                 break;
         }
 
-        playerScript = FindObjectOfType<Player_Script>().GetComponent<Player_Script>();
-        playerScript.GameStarted(true);
+
+
     }
 
 
@@ -648,6 +653,8 @@ public class GameplayManager : MonoBehaviour
     // MEMORY GAME
     private void MemoryStart()
     {
+        cardsAdded = new Cards_Script[numberOfCards];
+
         var cardsFace = new List<int>(numberOfCardsFaces);
         for (int i = 0; i < numberOfCardsFaces; i++)
         {
@@ -710,7 +717,38 @@ public class GameplayManager : MonoBehaviour
                 var temp = Instantiate(card, position, Quaternion.Euler(-5, 0, 0), cardPool.transform); // FIX ROTATION
                 numbersOfCardsCreated++;
                 temp.GetComponent<Cards_Script>().CardIndex = cardIndexes[randomIndex];
-                temp.GetComponent<Cards_Script>().CardGroupIndex = Random.Range(0, 3);
+
+                int randomGroup = Random.Range(0, 3);
+                if (cardIndexes.Count < numberOfCards)
+                {
+                    int cardsCreated = numberOfCards - cardIndexes.Count;
+
+                    for (int i = 0; i < cardsCreated; i++)
+                    {
+                        if (cardsAdded[i].CardIndex == cardIndexes[randomIndex])
+                        {
+                            int groupIndex = cardsAdded[i].CardGroupIndex;
+
+                            bool findIndexGroup = true;
+                            while (findIndexGroup)
+                            {
+                                if (groupIndex == randomGroup)
+                                {
+                                    randomGroup = Random.Range(0, 3);
+                                }
+                                else
+                                {
+                                    findIndexGroup = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                temp.GetComponent<Cards_Script>().CardGroupIndex = randomGroup;
+                cardsAdded[numberOfCards - cardIndexes.Count] = temp.GetComponent<Cards_Script>();
+
                 temp.GetComponent<Cards_Script>().SetGameplayManager(this);
                 temp.GetComponent<Cards_Script>().FlipCards(false);
                 cardIndexes.Remove(cardIndexes[randomIndex]);
@@ -784,6 +822,7 @@ public class GameplayManager : MonoBehaviour
             {
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
+                playerScript.GameStarted(false);
                 Debug.Log("perdeu");
             }
         }

@@ -115,7 +115,6 @@ public class Player_Script : MonoBehaviour
                     break;
             }
         }
-
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
 
     }

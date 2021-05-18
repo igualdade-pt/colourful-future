@@ -6449,8 +6449,8 @@ MonoBehaviour:
   numberOfCardsFaces: 25
   numberOfCardsByDifficulty: 080000000c000000
   timeToFlipCardsByDifficulty:
+  - 4
   - 3
-  - 1.5
   numberOfAttemptsByDifficulty: 0600000009000000
 --- !u!1 &1753148327
 GameObject:
