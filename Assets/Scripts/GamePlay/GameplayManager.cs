@@ -241,8 +241,10 @@ public class GameplayManager : MonoBehaviour
         switch (indexGameSelected)
         {
             case 0:
+
                 MatchColourStart();
                 matchColourGamePool.SetActive(true);
+                uiManager_GM.SetColourPanel(true);
                 break;
 
             case 1:

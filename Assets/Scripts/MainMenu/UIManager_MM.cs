@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager_MM : MonoBehaviour
@@ -26,6 +28,12 @@ public class UIManager_MM : MonoBehaviour
     [Header("Panels")]
     [Space]
     [SerializeField]
+    private GameObject mainPanel;
+
+    [SerializeField]
+    private GameObject colourPanel;
+
+    [SerializeField]
     private GameObject informationPanel;
 
     [SerializeField]
@@ -42,15 +50,41 @@ public class UIManager_MM : MonoBehaviour
 
     private bool isSoundActive = true;
 
+    [SerializeField]
+    RectTransform paintPanel;
+
+    [SerializeField]
+    private RectTransform[] tPaints;
+
+    [SerializeField]
+    private float[] yPaints;
+
+    [SerializeField]
+    private LeanTweenType easeType;
+
+    [SerializeField]
+    private AnimationCurve curve;
+
+    private float previousTime = 0;
+
+    private int currentIndexPaint;
+    private bool canChange;
+    private Vector2 lastDragPosition;
+    private bool positiveDrag;
+    private bool canDrag;
+
     private void Awake()
     {
         informationPanel.SetActive(false);
         booksPanel.SetActive(false);
+        colourPanel.SetActive(false);
+        mainPanel.SetActive(true);
 
         for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
         {
             buttonBookSelectedPanel[i].SetActive(false);
         }
+
     }
 
     private void Start()
@@ -58,6 +92,7 @@ public class UIManager_MM : MonoBehaviour
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
         //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         isSoundActive = true;
+        canChange = true;
     }
 
 
@@ -158,6 +193,19 @@ public class UIManager_MM : MonoBehaviour
         }
     }
 
+    public void _ColourButtonClicked()
+    {
+        mainPanel.SetActive(false);
+        colourPanel.SetActive(true);
+        InitUpdateFlag();
+    }
+
+    public void _ReturnColourButtonClicked()
+    {
+        colourPanel.SetActive(false);
+        mainPanel.SetActive(true);
+    }
+
     public void _GameButtonClicked(int indexGame)
     {
         mainMenuManager.LoadAsyncGamePlay(indexGame);
@@ -169,4 +217,186 @@ public class UIManager_MM : MonoBehaviour
     }
 
 
+    private void InitUpdateFlag()
+    {
+
+        // Change Paint
+        int t = 0 - Mathf.FloorToInt(yPaints.Length / 2);
+        if (t < 0)
+        {
+            t += yPaints.Length;
+        }
+
+        for (int i = 0; i < tPaints.Length; i++)
+        {
+            if (t > 0)
+            {
+                t--;
+            }
+            else
+            {
+                t = yPaints.Length - 1;
+            }
+
+            tPaints[i].anchoredPosition = new Vector2(tPaints[i].anchoredPosition.x, yPaints[t]);
+
+        }
+
+        previousTime = Time.time;
+    }
+
+
+    public void UpdateFlag(int indexLanguage)
+    {
+        // Change Flag
+        int t = indexLanguage - Mathf.FloorToInt(yPaints.Length / 2);
+        if (t < 0)
+        {
+            t += yPaints.Length;
+        }
+
+        for (int i = 0; i < tPaints.Length; i++)
+        {
+            if (t > 0)
+            {
+                t--;
+            }
+            else
+            {
+                t = yPaints.Length - 1;
+            }
+
+            if (t == 1 || t == 2 || t == 3 || t == 4 || t == 5)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveY(tPaints[i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
+                }
+                else
+                {
+                    LeanTween.moveY(tPaints[i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
+                }
+            }
+            else
+            {
+                LeanTween.cancel(tPaints[i]);
+                tPaints[i].anchoredPosition = new Vector2(tPaints[i].anchoredPosition.x, yPaints[t]);
+            }
+        }
+
+
+
+    }
+
+    private void CanChangePaint()
+    {
+        canChange = true;
+    }
+
+    public void _DownButtonClick()
+    {
+        if (canChange)
+        {
+            canChange = false;
+            if (currentIndexPaint < tPaints.Length - 1)
+            {
+                currentIndexPaint++;
+            }
+            else
+            {
+                currentIndexPaint = 0;
+            }
+
+            UpdateFlag(currentIndexPaint);
+        }
+
+    }
+
+    public void _UpButtonClick()
+    {
+        if (canChange)
+        {
+            canChange = false;
+            if (currentIndexPaint > 0)
+            {
+                currentIndexPaint--;
+            }
+            else
+            {
+                currentIndexPaint = tPaints.Length - 1;
+            }
+
+            UpdateFlag(currentIndexPaint);
+        }
+    }
+
+
+    public void _BeginDrag()
+    {
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _Drag()
+    {
+        canDrag = false;
+
+        if (Input.mousePosition.y != lastDragPosition.y)
+        {
+            canDrag = true;
+            positiveDrag = Input.mousePosition.y > lastDragPosition.y;
+        }
+        
+
+        if (canDrag)
+        {
+            if (positiveDrag)
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexPaint > 0)
+                    {
+                        currentIndexPaint--;
+                    }
+                    else
+                    {
+                        currentIndexPaint = tPaints.Length - 1;
+                    }
+                    UpdateFlag(currentIndexPaint);
+                }
+            }
+            else
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexPaint < tPaints.Length - 1)
+                    {
+                        currentIndexPaint++;
+                    }
+                    else
+                    {
+                        currentIndexPaint = 0;
+                    }
+                    UpdateFlag(currentIndexPaint);
+                }
+            }
+        }
+
+
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _EndDrag()
+    {
+        canDrag = true;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PaintCraft.Tools;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,12 @@ public class UIManager_GM : MonoBehaviour
     private GameObject gameEndedPanel;
 
     [SerializeField]
+    private GameObject colourPanel;
+
+    [SerializeField]
+    private GameObject screenShotPanel;
+
+    [SerializeField]
     private Text attemptsRemainText;
 
     [SerializeField]
@@ -20,13 +27,30 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private Text timerRemainText;
 
+    [SerializeField]
+    private RectTransform rectPaint;
+
+    [SerializeField]
+    private LineConfig lineConfig;
+
     private int totalCorrectMoves;
     private void Start()
     {
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
         gameEndedPanel.SetActive(false);
+        colourPanel.SetActive(false);
+        screenShotPanel.SetActive(false);
         timerRemainText.gameObject.SetActive(false);
         correctRemainText.gameObject.SetActive(false);
+        attemptsRemainText.gameObject.SetActive(false);
+        StartCoroutine(x());
+    }
+
+    private IEnumerator x()
+    {
+        yield return new WaitForEndOfFrame();
+
+        rectPaint.offsetMin = new Vector2(0, -130);
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -73,6 +97,7 @@ public class UIManager_GM : MonoBehaviour
 
     public void UpdateAttempts(int value)
     {
+        attemptsRemainText.gameObject.SetActive(true);
         attemptsRemainText.text = value.ToString();
     }
 
@@ -107,5 +132,39 @@ public class UIManager_GM : MonoBehaviour
     public void SetTotalCorrectMovesTextActive(int value)
     {
         totalCorrectMoves = value;
+    }
+
+
+    public void _BrushSizeClicked(float value)
+    {
+        lineConfig.scale = value;    
+    }
+
+    public void SetColourPanel(bool value)
+    {
+        colourPanel.SetActive(value);   
+    
+    }
+
+    public void _ScreenShotButton()
+    {
+        StartCoroutine(CaptureScreen());
+    }
+    public IEnumerator CaptureScreen()
+    {
+        // Wait till the last possible moment before screen rendering to hide the UI
+        yield return null;
+        screenShotPanel.SetActive(true);
+        colourPanel.SetActive(false);
+
+        // Wait for screen rendering to complete
+        yield return new WaitForEndOfFrame();
+
+        // Take screenshot
+        ScreenCapture.CaptureScreenshot("screenshot.png");
+
+        // Show UI after we're done
+        colourPanel.SetActive(true);
+        screenShotPanel.SetActive(false);
     }
 }
