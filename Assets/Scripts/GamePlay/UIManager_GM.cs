@@ -79,10 +79,11 @@ public class UIManager_GM : MonoBehaviour
         }
     }
 
-    public void _RestartButtonClicked(int indexLevel)
+    public void _RestartButtonClicked()
     {
-        gameplayManager.LoadSelectedScene(indexLevel);
-        SetGameEndedPanel(false);
+        var x = SceneManager.GetActiveScene();
+        gameplayManager.LoadSelectedScene(x.buildIndex);
+        //SetGameEndedPanel(false);
     }
 
     public void SetGameEndedPanel(bool value)
@@ -92,7 +93,7 @@ public class UIManager_GM : MonoBehaviour
 
     public void _Return()
     {
-        SceneManager.LoadScene(3);
+        gameplayManager.LoadSelectedScene(3);
     }
 
     public void UpdateAttempts(int value)
@@ -161,7 +162,9 @@ public class UIManager_GM : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         // Take screenshot
-        ScreenCapture.CaptureScreenshot("screenshot.png");
+        string day = System.DateTime.Now.ToString("dd-MM-yy");
+        string hour = System.DateTime.Now.ToString("HH-mm-ss");
+        ScreenCapture.CaptureScreenshot("screenshot_" + day + "_" + hour + ".png");
 
         // Show UI after we're done
         colourPanel.SetActive(true);

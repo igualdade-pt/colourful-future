@@ -51,7 +51,9 @@ public class MainMenuManager : MonoBehaviour
 
         uiManager_MM = FindObjectOfType<UIManager_MM>().GetComponent<UIManager_MM>();
 
-        uiManager_MM.UpdateLanguage(indexLanguage);       
+        uiManager_MM.UpdateLanguage(indexLanguage);
+
+        uiManager_MM.UpdateDificulty(gameInstance.DifficultyLevelIndex);
         
     }
 

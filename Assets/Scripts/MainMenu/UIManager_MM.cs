@@ -50,11 +50,21 @@ public class UIManager_MM : MonoBehaviour
 
     private bool isSoundActive = true;
 
+    [Header("Colour Menu")]
+    [Space]
     [SerializeField]
-    RectTransform paintPanel;
+    private GameObject paintBasicPanel;
 
     [SerializeField]
-    private RectTransform[] tPaints;
+    private GameObject paintExpertPanel;
+
+    [SerializeField]
+    private RectTransform[] tPaintsBasic;
+
+    [SerializeField]
+    private RectTransform[] tPaintsExpert;
+
+    private RectTransform[][] tPaints = new RectTransform [2][];
 
     [SerializeField]
     private float[] yPaints;
@@ -72,6 +82,7 @@ public class UIManager_MM : MonoBehaviour
     private Vector2 lastDragPosition;
     private bool positiveDrag;
     private bool canDrag;
+    private int indexDificulty;
 
     private void Awake()
     {
@@ -93,6 +104,9 @@ public class UIManager_MM : MonoBehaviour
         //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         isSoundActive = true;
         canChange = true;
+
+        tPaints[0] = tPaintsBasic;
+        tPaints[1] = tPaintsExpert;
     }
 
 
@@ -197,7 +211,7 @@ public class UIManager_MM : MonoBehaviour
     {
         mainPanel.SetActive(false);
         colourPanel.SetActive(true);
-        InitUpdateFlag();
+        InitUpdatePaint();
     }
 
     public void _ReturnColourButtonClicked()
@@ -216,10 +230,35 @@ public class UIManager_MM : MonoBehaviour
 
     }
 
-
-    private void InitUpdateFlag()
+    public void UpdateDificulty(int value)
     {
+        indexDificulty = value;
 
+        Debug.Log(value);
+
+        switch (value)
+        {
+            case 0:
+                paintExpertPanel.SetActive(false);
+                paintBasicPanel.SetActive(true);
+                break;
+
+            case 1:
+                paintBasicPanel.SetActive(false);
+                paintExpertPanel.SetActive(true);
+                break;
+
+            default:
+                paintExpertPanel.SetActive(false);
+                paintBasicPanel.SetActive(true);
+                break;
+        }
+    }
+
+
+    private void InitUpdatePaint()
+    {
+        currentIndexPaint = 0;
         // Change Paint
         int t = 0 - Mathf.FloorToInt(yPaints.Length / 2);
         if (t < 0)
@@ -227,7 +266,7 @@ public class UIManager_MM : MonoBehaviour
             t += yPaints.Length;
         }
 
-        for (int i = 0; i < tPaints.Length; i++)
+        for (int i = 0; i < tPaints[indexDificulty].Length; i++)
         {
             if (t > 0)
             {
@@ -238,7 +277,7 @@ public class UIManager_MM : MonoBehaviour
                 t = yPaints.Length - 1;
             }
 
-            tPaints[i].anchoredPosition = new Vector2(tPaints[i].anchoredPosition.x, yPaints[t]);
+            tPaints[indexDificulty][i].anchoredPosition = new Vector2(tPaints[indexDificulty][i].anchoredPosition.x, yPaints[t]);
 
         }
 
@@ -246,16 +285,16 @@ public class UIManager_MM : MonoBehaviour
     }
 
 
-    public void UpdateFlag(int indexLanguage)
+    public void UpdatePaint(int indexPaint)
     {
         // Change Flag
-        int t = indexLanguage - Mathf.FloorToInt(yPaints.Length / 2);
+        int t = indexPaint - Mathf.FloorToInt(yPaints.Length / 2);
         if (t < 0)
         {
             t += yPaints.Length;
         }
 
-        for (int i = 0; i < tPaints.Length; i++)
+        for (int i = 0; i < tPaints[indexDificulty].Length; i++)
         {
             if (t > 0)
             {
@@ -276,17 +315,17 @@ public class UIManager_MM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveY(tPaints[i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
+                    LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
                 }
                 else
                 {
-                    LeanTween.moveY(tPaints[i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
+                    LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
                 }
             }
             else
             {
-                LeanTween.cancel(tPaints[i]);
-                tPaints[i].anchoredPosition = new Vector2(tPaints[i].anchoredPosition.x, yPaints[t]);
+                LeanTween.cancel(tPaints[indexDificulty][i]);
+                tPaints[indexDificulty][i].anchoredPosition = new Vector2(tPaints[indexDificulty][i].anchoredPosition.x, yPaints[t]);
             }
         }
 
@@ -304,7 +343,7 @@ public class UIManager_MM : MonoBehaviour
         if (canChange)
         {
             canChange = false;
-            if (currentIndexPaint < tPaints.Length - 1)
+            if (currentIndexPaint < tPaints[indexDificulty].Length - 1)
             {
                 currentIndexPaint++;
             }
@@ -313,7 +352,7 @@ public class UIManager_MM : MonoBehaviour
                 currentIndexPaint = 0;
             }
 
-            UpdateFlag(currentIndexPaint);
+            UpdatePaint(currentIndexPaint);
         }
 
     }
@@ -329,10 +368,10 @@ public class UIManager_MM : MonoBehaviour
             }
             else
             {
-                currentIndexPaint = tPaints.Length - 1;
+                currentIndexPaint = tPaints[indexDificulty].Length - 1;
             }
 
-            UpdateFlag(currentIndexPaint);
+            UpdatePaint(currentIndexPaint);
         }
     }
 
@@ -367,9 +406,9 @@ public class UIManager_MM : MonoBehaviour
                     }
                     else
                     {
-                        currentIndexPaint = tPaints.Length - 1;
+                        currentIndexPaint = tPaints[indexDificulty].Length - 1;
                     }
-                    UpdateFlag(currentIndexPaint);
+                    UpdatePaint(currentIndexPaint);
                 }
             }
             else
@@ -377,7 +416,7 @@ public class UIManager_MM : MonoBehaviour
                 if (canChange)
                 {
                     canChange = false;
-                    if (currentIndexPaint < tPaints.Length - 1)
+                    if (currentIndexPaint < tPaints[indexDificulty].Length - 1)
                     {
                         currentIndexPaint++;
                     }
@@ -385,7 +424,7 @@ public class UIManager_MM : MonoBehaviour
                     {
                         currentIndexPaint = 0;
                     }
-                    UpdateFlag(currentIndexPaint);
+                    UpdatePaint(currentIndexPaint);
                 }
             }
         }

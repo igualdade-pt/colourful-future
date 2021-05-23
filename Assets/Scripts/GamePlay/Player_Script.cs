@@ -125,7 +125,7 @@ public class Player_Script : MonoBehaviour
         switch (indexGameSelected)
         {
             case 0:
-                MatchColorGameUpdate();
+                //MatchColorGameUpdate();
                 break;
 
             case 1:

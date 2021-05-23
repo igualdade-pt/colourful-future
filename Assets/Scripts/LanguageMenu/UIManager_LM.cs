@@ -40,6 +40,7 @@ public class UIManager_LM : MonoBehaviour
     private void Start()
     {
         languageMenuManager = FindObjectOfType<LanguageMenuManager>().GetComponent<LanguageMenuManager>();
+
     }
 
     public void InitUpdateFlag(int indexLanguage)

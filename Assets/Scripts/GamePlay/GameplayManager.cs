@@ -84,6 +84,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private float timeBetweenCards = 2;
 
+    [SerializeField]
+    private float timeToStartGame = 2;
+
     [Header("Element 0 - Basic, Element 1 - Expert")]
     [Space]
 
@@ -252,6 +255,7 @@ public class GameplayManager : MonoBehaviour
                 numberOfAttemptsToConnect = numberOfAttemptsToConnectByDifficulty[indexDifficulty];
                 totalNumberOfRightConnects = numberOfRightConnectsByDifficulty[indexDifficulty];
                 numberOfRightConnects = totalNumberOfRightConnects;
+                Debug.Log(indexDifficulty);
                 switch (indexDifficulty)  // TIMER
                 {
                     case 0:
@@ -263,6 +267,7 @@ public class GameplayManager : MonoBehaviour
                         min = timerByDifficulty[2];
                         sec = timerByDifficulty[3];
                         break;
+
                     default:
                         min = timerByDifficulty[0];
                         sec = timerByDifficulty[1];
@@ -281,8 +286,7 @@ public class GameplayManager : MonoBehaviour
                 dragConnectGamePool.SetActive(true);
                 DragConnectStart();
                 playerScript = FindObjectOfType<Player_Script>().GetComponent<Player_Script>();
-                playerScript.GameStarted(true);
-                StartCoroutine(CountdownSec());
+                StartCoroutine(InitialWaitToStart(timeToStartGame)); 
                 break;
 
             case 2:
@@ -358,7 +362,7 @@ public class GameplayManager : MonoBehaviour
                 temp.GetComponent<ConnectCards_Script>().CardIndex = connectCardIndexes[randomIndex];
                 temp.GetComponent<ConnectCards_Script>().CardGroupIndex = Random.Range(0, 3);
 
-                temp.GetComponent<ConnectCards_Script>().FlipCard();
+                //temp.GetComponent<ConnectCards_Script>().FlipCard();
                 connectCardIndexes.Remove(connectCardIndexes[randomIndex]);
             }
         }
@@ -387,12 +391,33 @@ public class GameplayManager : MonoBehaviour
         specialCard.GetComponent<ConnectCards_Script>().CardIndex = indexSelected;
         specialCard.GetComponent<ConnectCards_Script>().CardGroupIndex = indexGoupSelected;
 
-        specialCard.GetComponent<ConnectCards_Script>().FlipCard();
+        //specialCard.GetComponent<ConnectCards_Script>().FlipCard();
 
 
         selectedCharacterIndexes = new int[numberOfRightConnects + numberOfAttemptsToConnect];
 
         selectedCharacterIndexes[numberOfMoves] = indexSelected;
+    }
+
+    private IEnumerator InitialWaitToStart(float time)
+    {
+        yield return new WaitForSeconds(time);
+        var cards = GameObject.FindGameObjectsWithTag("ConnectCard");
+
+        foreach (GameObject card in cards)
+        {
+            card.GetComponent<ConnectCards_Script>().FlipCard();
+        }
+
+        var specialCard = GameObject.FindGameObjectsWithTag("CharacterCard");
+
+        foreach (GameObject special in specialCard)
+        {
+            special.GetComponent<ConnectCards_Script>().FlipCard();
+        }
+
+        playerScript.GameStarted(true);
+        StartCoroutine(CountdownSec());
     }
 
     public void CheckingCard(GameObject cardChosen)
@@ -455,8 +480,23 @@ public class GameplayManager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        min = timerByDifficulty[0];
-        sec = timerByDifficulty[0 + 1];
+        switch (indexDifficulty)  // TIMER
+        {
+            case 0:
+                min = timerByDifficulty[0];
+                sec = timerByDifficulty[1];
+                break;
+
+            case 1:
+                min = timerByDifficulty[2];
+                sec = timerByDifficulty[3];
+                break;
+
+            default:
+                min = timerByDifficulty[0];
+                sec = timerByDifficulty[1];
+                break;
+        }
         uiManager_GM.UpdateTimer(min, sec);
 
         yield return new WaitForSeconds(timeBetweenCards - 1);
