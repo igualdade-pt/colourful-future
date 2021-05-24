@@ -48,6 +48,36 @@ public class UIManager_SM : MonoBehaviour
 
     private bool isSoundActive = true;
 
+
+    [Header("Book")]
+    [Space]
+    [SerializeField]
+    private RectTransform[] tPagesBookTV;
+
+    [SerializeField]
+    private RectTransform[] tPaintsExpert;
+
+    private RectTransform[][] tPages = new RectTransform[4][];
+
+    [SerializeField]
+    private float[] xPages;
+
+    [SerializeField]
+    private LeanTweenType easeType;
+
+    [SerializeField]
+    private AnimationCurve curve;
+
+    private float previousTime = 0;
+
+    private int currentIndexPage;
+    private bool canChange;
+    private Vector2 lastDragPosition;
+    private bool positiveDrag;
+    private bool canDrag;
+
+    private int bookSelected;
+
     private void Awake()
     {
         informationPanel.SetActive(false);
@@ -66,6 +96,9 @@ public class UIManager_SM : MonoBehaviour
         startMenuManager = FindObjectOfType<StartMenuManager>().GetComponent<StartMenuManager>();
         //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         isSoundActive = true;
+        canChange = true;
+        tPages[0] = tPagesBookTV;
+        tPages[1] = tPaintsExpert;
     }
 
     public void _StartButtonClicked(int indexScene)
@@ -127,6 +160,8 @@ public class UIManager_SM : MonoBehaviour
     {
         if (booksPanel.activeSelf)
         {
+            bookSelected = indexBook;
+            InitUpdatePaint();
             buttonsBooksPanel.SetActive(false);
             buttonCloseBooksPanel.SetActive(false);
 
@@ -194,6 +229,251 @@ public class UIManager_SM : MonoBehaviour
     public void UpdateLanguage(int indexLanguage)
     {
 
+    }
+
+    private void InitUpdatePaint()
+    {
+        currentIndexPage = 0;
+        // Change Paint
+        int t = 0;
+
+        for (int i = 0; i < tPages[bookSelected].Length; i++)
+        {
+            if (0 == i)
+            {
+                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[2], tPages[bookSelected][i].anchoredPosition.y);
+            }
+            else if (1 == i)
+            {
+                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[3], tPages[bookSelected][i].anchoredPosition.y);
+            }
+            else
+            {
+                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][i].anchoredPosition.y);
+            }
+
+        }
+
+        previousTime = Time.time;
+    }
+
+
+    public void UpdatePage(int indexPage)
+    {
+        int t = indexPage;
+
+        int first = t + 1;
+        int second = t + 2;
+        int third = t - 1;
+        int fourth = t - 2;
+
+        for (int i = 0; i < tPages[bookSelected].Length; i++)
+        {
+            if (t == i)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[2], time).setEase(curve).setOnComplete(CanChangePage);
+                }
+                else
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[2], time).setEase(easeType).setOnComplete(CanChangePage);
+                }
+            }
+            else if (first == i)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[3], time).setEase(curve).setOnComplete(CanChangePage);
+                }
+                else
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[3], time).setEase(easeType).setOnComplete(CanChangePage);
+                }
+            }
+            else if (second == i)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[4], time).setEase(curve).setOnComplete(CanChangePage);
+                }
+                else
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[4], time).setEase(easeType).setOnComplete(CanChangePage);
+                }
+            }
+            else if (third == i)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[1], time).setEase(curve).setOnComplete(CanChangePage);
+                }
+                else
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[1], time).setEase(easeType).setOnComplete(CanChangePage);
+                }
+            }
+            else if (fourth == i)
+            {
+                float time = Time.time - previousTime - 0.1f;
+                time = Mathf.Clamp(time, 0f, 0.5f);
+                if (time < 0.18)
+                {
+                    time = 0;
+                }
+                if (easeType == LeanTweenType.animationCurve)
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[0], time).setEase(curve).setOnComplete(CanChangePage);
+                }
+                else
+                {
+                    LeanTween.moveX(tPages[bookSelected][i], xPages[0], time).setEase(easeType).setOnComplete(CanChangePage);
+                }
+            }
+            else
+            {
+                LeanTween.cancel(tPages[bookSelected][i]);
+                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][i].anchoredPosition.y);
+            }
+        }
+
+
+
+    }
+
+    private void CanChangePage()
+    {
+        canChange = true;
+    }
+
+    public void _RightButtonClick()
+    {
+        if (canChange)
+        {
+            canChange = false;
+            if (currentIndexPage < tPages[bookSelected].Length - 1)
+            {
+                currentIndexPage++;
+                UpdatePage(currentIndexPage);
+            }
+            else
+            {
+                currentIndexPage = tPages[bookSelected].Length - 1;
+                canChange = true;
+            }
+
+        }
+
+    }
+
+    public void _LeftButtonClick()
+    {
+        if (canChange)
+        {
+            canChange = false;
+            if (currentIndexPage > 0)
+            {
+                currentIndexPage--;
+                UpdatePage(currentIndexPage);
+            }
+            else
+            {
+                currentIndexPage = 0;
+                canChange = true;
+            }
+
+        }
+    }
+
+
+    public void _BeginDrag()
+    {
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _Drag()
+    {
+        canDrag = false;
+
+        if (Input.mousePosition.x != lastDragPosition.x)
+        {
+            canDrag = true;
+            positiveDrag = Input.mousePosition.x > lastDragPosition.x;
+        }
+
+
+        if (canDrag)
+        {
+            if (positiveDrag)
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexPage < tPages[bookSelected].Length - 1)
+                    {
+                        currentIndexPage++;
+                        UpdatePage(currentIndexPage);
+                    }
+                    else
+                    {
+                        currentIndexPage = tPages[bookSelected].Length - 1;
+                        canChange = true;
+                    }
+                }
+            }
+            else
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexPage > 0)
+                    {
+                        currentIndexPage--;
+                        UpdatePage(currentIndexPage);
+                    }
+                    else
+                    {
+                        currentIndexPage = 0;
+                        canChange = true;
+                    }
+
+                }
+            }
+        }
+
+
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _EndDrag()
+    {
+        canDrag = true;
     }
 
 }

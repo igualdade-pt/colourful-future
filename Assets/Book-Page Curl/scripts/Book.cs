@@ -307,7 +307,7 @@ public class Book : MonoBehaviour {
     }
     public void OnMouseDragRightPage()
     {
-        if (interactable)
+        if (interactable && canFlipPage)
         DragRightPageToPoint(transformPoint(Input.mousePosition));
         
     }
@@ -341,7 +341,7 @@ public class Book : MonoBehaviour {
     }
     public void OnMouseDragLeftPage()
     {
-        if (interactable)
+        if (interactable && canFlipPage)
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
         
     }
@@ -446,5 +446,10 @@ public class Book : MonoBehaviour {
         }
         if (onFinish != null)
             onFinish();
+    }
+
+    public void CanFlipPage()
+    {
+        canFlipPage = true;
     }
 }
