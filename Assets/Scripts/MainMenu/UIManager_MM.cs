@@ -225,6 +225,11 @@ public class UIManager_MM : MonoBehaviour
         mainMenuManager.LoadAsyncGamePlay(indexGame);
     }
 
+    public void _ReturnButtonClicked(int indexScene)
+    {
+        mainMenuManager.LoadScene(indexScene);
+    }
+
     public void UpdateLanguage(int indexLanguage)
     {
 

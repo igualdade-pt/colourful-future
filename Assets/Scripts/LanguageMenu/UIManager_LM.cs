@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class UIManager_LM : MonoBehaviour
 {
-    [SerializeField]
-    private Image flagImage;
+    //[SerializeField]
+    //private Image flagImage;
 
     //[SerializeField]
     //private Sprite[] flags;
@@ -40,7 +40,6 @@ public class UIManager_LM : MonoBehaviour
     private void Start()
     {
         languageMenuManager = FindObjectOfType<LanguageMenuManager>().GetComponent<LanguageMenuManager>();
-
     }
 
     public void InitUpdateFlag(int indexLanguage)

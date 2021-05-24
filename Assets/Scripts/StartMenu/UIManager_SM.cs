@@ -14,16 +14,17 @@ public class UIManager_SM : MonoBehaviour
     [Header("Buttons")]
     [Space]
     [SerializeField]
-    private Button soundButton;
+    private Image soundImage;
 
     [SerializeField]
-    private Sprite[] spriteOffOnSound;
+    private Sprite[] spritesOnOffSound;
 
     [SerializeField]
     private GameObject buttonCloseBooksPanel;
 
     [SerializeField]
     private GameObject[] buttonBookSelectedPanel;
+
 
     [Header("Panels")]
     [Space]
@@ -34,10 +35,14 @@ public class UIManager_SM : MonoBehaviour
     private GameObject booksPanel;
 
     [SerializeField]
+    private GameObject allBooksPanel;
+
+    [SerializeField]
     private GameObject buttonsBooksPanel;
 
     [SerializeField]
-    private GameObject allBooksPanel;
+    private GameObject gamePanel;
+
 
     private int indexBookSelected;
 
@@ -47,6 +52,8 @@ public class UIManager_SM : MonoBehaviour
     {
         informationPanel.SetActive(false);
         booksPanel.SetActive(false);
+        gamePanel.SetActive(false);
+        soundImage.sprite = spritesOnOffSound[0];
 
         for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
         {
@@ -61,7 +68,7 @@ public class UIManager_SM : MonoBehaviour
         isSoundActive = true;
     }
 
-    public void _StartButtonClicked (int indexScene)
+    public void _StartButtonClicked(int indexScene)
     {
         Debug.Log("Start Clicked, Index Scene: " + indexScene);
 
@@ -84,7 +91,7 @@ public class UIManager_SM : MonoBehaviour
         }
     }
 
-    public void _LanguageButtonClicked (int indexScene)
+    public void _LanguageButtonClicked(int indexScene)
     {
         Debug.Log("Language Clicked, Index Scene: " + indexScene);
 
@@ -147,14 +154,32 @@ public class UIManager_SM : MonoBehaviour
         }
     }
 
+
+    public void _GamesButtonClicked()
+    {
+        if (!gamePanel.activeSelf)
+        {
+            gamePanel.SetActive(true);
+        }
+    }
+
+    public void _CloseGamesButtonClicked()
+    {
+        if (gamePanel.activeSelf)
+        {
+            gamePanel.SetActive(false);
+        }
+    }
+
     public void _SoundButtonClicked()
     {
         if (isSoundActive)
         {
             //soundButton.image.sprite = spriteOffOnSound[0];
-            Debug.Log( "sound is OFF, value:" + isSoundActive);
+            Debug.Log("sound is OFF, value:" + isSoundActive);
             //audioManager.SetVolume(isSoundActive);
             isSoundActive = false;
+            soundImage.sprite = spritesOnOffSound[1];
         }
         else
         {
@@ -162,13 +187,13 @@ public class UIManager_SM : MonoBehaviour
             Debug.Log("sound is ON, value:" + isSoundActive);
             //audioManager.SetVolume(isSoundActive);
             isSoundActive = true;
+            soundImage.sprite = spritesOnOffSound[0];
         }
-        
     }
 
     public void UpdateLanguage(int indexLanguage)
     {
-        
+
     }
 
 }
