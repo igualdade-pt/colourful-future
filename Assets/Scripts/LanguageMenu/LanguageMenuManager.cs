@@ -28,7 +28,7 @@ public class LanguageMenuManager : MonoBehaviour
         DontDestroyOnLoad(go);
 
         // For test
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
     }
 
 
@@ -100,7 +100,16 @@ public class LanguageMenuManager : MonoBehaviour
         Debug.Log("Index Language saved: " + PlayerPrefs.GetInt("languageSystem", 0));
         gameInstance.LanguageIndex = indexLanguage;
 
-        SceneManager.LoadScene(indexSceneToLoad);
+        if (gameInstance.CameFromStartMenu)
+        {
+            gameInstance.CameFromStartMenu = false;
+            SceneManager.LoadScene(indexSceneToLoad + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(indexSceneToLoad);
+        }
+
 
     }
 

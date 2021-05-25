@@ -429,7 +429,7 @@ public class UIManager_SM : MonoBehaviour
 
         if (canDrag)
         {
-            if (positiveDrag)
+            if (!positiveDrag)
             {
                 if (canChange)
                 {
