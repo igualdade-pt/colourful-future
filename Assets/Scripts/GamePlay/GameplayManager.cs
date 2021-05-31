@@ -276,6 +276,8 @@ public class GameplayManager : MonoBehaviour
 
                 uiManager_GM.UpdateAttempts(numberOfAttemptsToConnect);
 
+                uiManager_GM.SetReturnButton(true);
+
                 uiManager_GM.SetTimerActive(true);
                 uiManager_GM.UpdateTimer(min, sec);
 
@@ -292,6 +294,7 @@ public class GameplayManager : MonoBehaviour
             case 2:
                 numberOfCards = numberOfCardsByDifficulty[indexDifficulty];
                 numberOfAttempts = numberOfAttemptsByDifficulty[indexDifficulty];
+                uiManager_GM.SetReturnButton(true);
                 uiManager_GM.UpdateAttempts(numberOfAttempts);
                 memoryGamePool.SetActive(true);
                 MemoryStart();
@@ -730,6 +733,8 @@ public class GameplayManager : MonoBehaviour
         int numbersOfCardsCreated = 0;
         float correctX = 0;
         float increaseY = 0;
+        float increaseMultipierX = 1;
+        float increaseMultipierY = 1;
         if (numberOfCards > 9 && numberOfCards <= 12)
         {
             increaseY = -0.5f;
@@ -739,6 +744,8 @@ public class GameplayManager : MonoBehaviour
         {
             correctX = 0.5f;
             increaseY = -0.5f;
+            increaseMultipierX = 1.2f;
+            increaseMultipierY = 1.1f;
         }
 
         for (int y = 0; y < rows; y++)
@@ -755,8 +762,12 @@ public class GameplayManager : MonoBehaviour
             for (int x = 0; x < cols; x++)
             {
                 randomIndex = Random.Range(0, cardIndexes.Count);
-                Vector3 position = new Vector3((cols / 2 - x - correctX) * multiplierXForMemoryGame, (rows / 2 - y + increaseY) * multiplierYForMemoryGame, 0);
+                Vector3 position = new Vector3((cols / 2 - x - correctX) * (multiplierXForMemoryGame * increaseMultipierX), (rows / 2 - y + increaseY) * (multiplierYForMemoryGame * increaseMultipierY), 0);
                 var temp = Instantiate(card, position, Quaternion.Euler(-5, 0, 0), cardPool.transform); // FIX ROTATION
+                if (cols % 3 != 0)
+                {
+                    temp.transform.localScale = new Vector3 (0.35f, 0.35f, 0.35f);
+                }                
                 numbersOfCardsCreated++;
                 temp.GetComponent<Cards_Script>().CardIndex = cardIndexes[randomIndex];
 
@@ -897,7 +908,13 @@ public class GameplayManager : MonoBehaviour
 
     public void LoadSelectedScene(int indexSelected)
     {
+        if (indexGameSelected == 0)
+        {
+            gameInstance.CameFromPainting = true;
+        }
+
         StartCoroutine(StartLoadAsyncScene(indexSelected));
+
     }
 
     private IEnumerator StartLoadAsyncScene(int indexLevel)

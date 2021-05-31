@@ -94,7 +94,7 @@ public class UIManager_SM : MonoBehaviour
     private void Start()
     {
         startMenuManager = FindObjectOfType<StartMenuManager>().GetComponent<StartMenuManager>();
-        //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         isSoundActive = true;
         canChange = true;
         tPages[0] = tPagesBookTV;
@@ -104,7 +104,9 @@ public class UIManager_SM : MonoBehaviour
     public void _StartButtonClicked(int indexScene)
     {
         Debug.Log("Start Clicked, Index Scene: " + indexScene);
-
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         startMenuManager.LoadAsyncScene(indexScene);
     }
 
@@ -112,6 +114,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (!informationPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             informationPanel.SetActive(true);
         }
     }
@@ -120,6 +125,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (informationPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             informationPanel.SetActive(false);
         }
     }
@@ -127,14 +135,18 @@ public class UIManager_SM : MonoBehaviour
     public void _LanguageButtonClicked(int indexScene)
     {
         Debug.Log("Language Clicked, Index Scene: " + indexScene);
-
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         startMenuManager.LoadScene(indexScene);
     }
 
     public void _AgeButtonClicked(int indexScene)
     {
         Debug.Log("Age Clicked, Index Scene: " + indexScene);
-
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         startMenuManager.LoadScene(indexScene);
     }
 
@@ -142,6 +154,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (!booksPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             allBooksPanel.SetActive(false);
             booksPanel.SetActive(true);
             buttonsBooksPanel.SetActive(true);
@@ -150,20 +165,38 @@ public class UIManager_SM : MonoBehaviour
 
     public void _CloseBooksButtonClicked()
     {
-        if (booksPanel.activeSelf)
+        if (booksPanel.activeSelf && !allBooksPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             booksPanel.SetActive(false);
         }
+        else if (allBooksPanel.activeSelf)
+        {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            allBooksPanel.SetActive(false);
+            buttonBookSelectedPanel[indexBookSelected].SetActive(false);
+            buttonsBooksPanel.SetActive(false);
+            buttonsBooksPanel.SetActive(true);
+            //buttonCloseBooksPanel.SetActive(true);
+        }
+
     }
 
     public void _BookButtonSelectedClicked(int indexBook)
     {
         if (booksPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             bookSelected = indexBook;
             InitUpdatePaint();
             buttonsBooksPanel.SetActive(false);
-            buttonCloseBooksPanel.SetActive(false);
+            //buttonCloseBooksPanel.SetActive(false);
 
             for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
             {
@@ -181,6 +214,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (booksPanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             allBooksPanel.SetActive(false);
             buttonBookSelectedPanel[indexBookSelected].SetActive(false);
             buttonsBooksPanel.SetActive(false);
@@ -194,6 +230,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (!gamePanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             gamePanel.SetActive(true);
         }
     }
@@ -202,6 +241,9 @@ public class UIManager_SM : MonoBehaviour
     {
         if (gamePanel.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             gamePanel.SetActive(false);
         }
     }
@@ -212,7 +254,7 @@ public class UIManager_SM : MonoBehaviour
         {
             //soundButton.image.sprite = spriteOffOnSound[0];
             Debug.Log("sound is OFF, value:" + isSoundActive);
-            //audioManager.SetVolume(isSoundActive);
+            audioManager.SetMasterVolume(isSoundActive);
             isSoundActive = false;
             soundImage.sprite = spritesOnOffSound[1];
         }
@@ -220,7 +262,7 @@ public class UIManager_SM : MonoBehaviour
         {
             //soundButton.image.sprite = spriteOffOnSound[1];
             Debug.Log("sound is ON, value:" + isSoundActive);
-            //audioManager.SetVolume(isSoundActive);
+            audioManager.SetMasterVolume(isSoundActive);
             isSoundActive = true;
             soundImage.sprite = spritesOnOffSound[0];
         }
@@ -379,6 +421,9 @@ public class UIManager_SM : MonoBehaviour
             {
                 currentIndexPage++;
                 UpdatePage(currentIndexPage);
+                // Play Sound
+                audioManager.PlayClip(0, 0.6f);
+                // ****
             }
             else
             {
@@ -399,6 +444,9 @@ public class UIManager_SM : MonoBehaviour
             {
                 currentIndexPage--;
                 UpdatePage(currentIndexPage);
+                // Play Sound
+                audioManager.PlayClip(0, 0.6f);
+                // ****
             }
             else
             {
@@ -438,6 +486,9 @@ public class UIManager_SM : MonoBehaviour
                     {
                         currentIndexPage++;
                         UpdatePage(currentIndexPage);
+                        // Play Sound
+                        audioManager.PlayClip(1, 0.6f);
+                        // ****
                     }
                     else
                     {
@@ -455,6 +506,9 @@ public class UIManager_SM : MonoBehaviour
                     {
                         currentIndexPage--;
                         UpdatePage(currentIndexPage);
+                        // Play Sound
+                        audioManager.PlayClip(1, 0.6f);
+                        // ****
                     }
                     else
                     {

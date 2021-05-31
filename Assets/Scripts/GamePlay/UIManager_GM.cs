@@ -10,6 +10,9 @@ public class UIManager_GM : MonoBehaviour
     private GameplayManager gameplayManager;
 
     [SerializeField]
+    private GameObject loadingPanel;
+
+    [SerializeField]
     private GameObject gameEndedPanel;
 
     [SerializeField]
@@ -17,6 +20,9 @@ public class UIManager_GM : MonoBehaviour
 
     [SerializeField]
     private GameObject screenShotPanel;
+
+    [SerializeField]
+    private GameObject returnButton;
 
     [SerializeField]
     private Text attemptsRemainText;
@@ -37,12 +43,15 @@ public class UIManager_GM : MonoBehaviour
     private void Start()
     {
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
+        loadingPanel.SetActive(false);
         gameEndedPanel.SetActive(false);
         colourPanel.SetActive(false);
         screenShotPanel.SetActive(false);
+        returnButton.SetActive(false);
         timerRemainText.gameObject.SetActive(false);
         correctRemainText.gameObject.SetActive(false);
-        attemptsRemainText.gameObject.SetActive(false);
+        attemptsRemainText.transform.parent.gameObject.SetActive(false);
+
         StartCoroutine(x());
     }
 
@@ -81,6 +90,7 @@ public class UIManager_GM : MonoBehaviour
 
     public void _RestartButtonClicked()
     {
+        loadingPanel.SetActive(true);
         var x = SceneManager.GetActiveScene();
         gameplayManager.LoadSelectedScene(x.buildIndex);
         //SetGameEndedPanel(false);
@@ -93,12 +103,13 @@ public class UIManager_GM : MonoBehaviour
 
     public void _Return()
     {
+        loadingPanel.SetActive(true);
         gameplayManager.LoadSelectedScene(3);
     }
 
     public void UpdateAttempts(int value)
     {
-        attemptsRemainText.gameObject.SetActive(true);
+        attemptsRemainText.transform.parent.gameObject.SetActive(true);
         attemptsRemainText.text = value.ToString();
     }
 
@@ -109,15 +120,8 @@ public class UIManager_GM : MonoBehaviour
     }
 
     public void UpdateTimer(int min, int sec)
-    {        
-        if (sec < 10)
-        {
-            timerRemainText.text = min.ToString() + ":0" + sec.ToString();
-        }
-        else
-        {
-            timerRemainText.text = min.ToString() + ":" + sec.ToString();
-        }        
+    {
+        timerRemainText.text = min.ToString() + ":" + sec.ToString("00");    
     }
 
     public void SetTimerActive(bool value)
@@ -135,6 +139,11 @@ public class UIManager_GM : MonoBehaviour
         totalCorrectMoves = value;
     }
 
+    public void SetReturnButton(bool value)
+    {
+        returnButton.SetActive(value);
+    }
+
 
     public void _BrushSizeClicked(float value)
     {
@@ -143,8 +152,7 @@ public class UIManager_GM : MonoBehaviour
 
     public void SetColourPanel(bool value)
     {
-        colourPanel.SetActive(value);   
-    
+        colourPanel.SetActive(value);       
     }
 
     public void _ScreenShotButton()

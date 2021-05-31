@@ -16,6 +16,11 @@ public class LanguageMenuManager : MonoBehaviour
     [SerializeField]
     private int indexSceneToLoad;
 
+    [SerializeField]
+    private GameObject musicManager;
+
+    [SerializeField]
+    private GameObject audioManager;
 
     private void Awake()
     {
@@ -23,12 +28,26 @@ public class LanguageMenuManager : MonoBehaviour
         if (FindObjectOfType<GameInstanceScript>() != null)
             return;
 
-        var go = new GameObject { name = "[Game Instance]" };
-        go.AddComponent<GameInstanceScript>();
-        DontDestroyOnLoad(go);
+        var gI = new GameObject { name = "[Game Instance]" };
+        gI.AddComponent<GameInstanceScript>();
+        DontDestroyOnLoad(gI);
 
         // For test
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();  //-> This is for tests
+
+        // Instantiate Music Manager Prefab
+        if (FindObjectOfType<MusicManagerScript>() != null)
+            return;
+
+        var mM = Instantiate(musicManager);
+        DontDestroyOnLoad(mM);
+
+        // Instantiate Audio Manager Prefab
+        if (FindObjectOfType<AudioManager>() != null)
+            return;
+
+        var aM = Instantiate(audioManager);
+        DontDestroyOnLoad(aM);
     }
 
 
@@ -44,15 +63,21 @@ public class LanguageMenuManager : MonoBehaviour
 
         Screen.orientation = ScreenOrientation.AutoRotation;
 
-        Screen.SetResolution(1080, 1920, true);
+        // Orientation Screen
+        //Screen.SetResolution(1920, 1080, true);
+
+        Screen.fullScreen = false;
+
+        gameInstance = FindObjectOfType<GameInstanceScript>().GetComponent<GameInstanceScript>();
 
         //Check if the language is saved
-        if (PlayerPrefs.HasKey("languageSystem"))
+        if (PlayerPrefs.HasKey("languageSystem") && !gameInstance.CameFromStartMenu)
         {
             indexLanguage = PlayerPrefs.GetInt("languageSystem", 0);
+            LoadLevel();
         }
-        else // If not
-        { 
+        else if (!PlayerPrefs.HasKey("languageSystem") && gameInstance.LanguageIndex == -1)
+        {
             languageSystem = Application.systemLanguage;
 
             switch (languageSystem)
@@ -84,14 +109,16 @@ public class LanguageMenuManager : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            indexLanguage = gameInstance.LanguageIndex;
+        }
 
 
         uiManager_LM = FindObjectOfType<UIManager_LM>().GetComponent<UIManager_LM>();
 
         uiManager_LM.InitUpdateFlag(indexLanguage);
-        uiManager_LM.ChangeCurrentIndexFlag = indexLanguage;
-
-        gameInstance = FindObjectOfType<GameInstanceScript>().GetComponent<GameInstanceScript>();
+        uiManager_LM.ChangeCurrentIndexFlag = indexLanguage;        
     }
 
     public void LoadLevel()

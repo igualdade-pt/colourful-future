@@ -11,19 +11,6 @@ public class UIManager_MM : MonoBehaviour
 
     private AudioManager audioManager;
 
-    [Header("Buttons")]
-    [Space]
-    [SerializeField]
-    private Button soundButton;
-
-    [SerializeField]
-    private Sprite[] spriteOffOnSound;
-
-    [SerializeField]
-    private GameObject buttonCloseBooksPanel;
-
-    [SerializeField]
-    private GameObject[] buttonBookSelectedPanel;
 
     [Header("Panels")]
     [Space]
@@ -34,21 +21,7 @@ public class UIManager_MM : MonoBehaviour
     private GameObject colourPanel;
 
     [SerializeField]
-    private GameObject informationPanel;
-
-    [SerializeField]
-    private GameObject booksPanel;
-
-    [SerializeField]
-    private GameObject buttonsBooksPanel;
-
-    [SerializeField]
-    private GameObject allBooksPanel;
-
-
-    private int indexBookSelected;
-
-    private bool isSoundActive = true;
+    private GameObject loadingPanel;
 
     [Header("Colour Menu")]
     [Space]
@@ -83,33 +56,26 @@ public class UIManager_MM : MonoBehaviour
     private bool positiveDrag;
     private bool canDrag;
     private int indexDificulty;
+    
 
     private void Awake()
     {
-        informationPanel.SetActive(false);
-        booksPanel.SetActive(false);
         colourPanel.SetActive(false);
         mainPanel.SetActive(true);
-
-        for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
-        {
-            buttonBookSelectedPanel[i].SetActive(false);
-        }
-
+        loadingPanel.SetActive(false);
     }
 
     private void Start()
     {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
-        //audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
-        isSoundActive = true;
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         canChange = true;
 
         tPaints[0] = tPaintsBasic;
         tPaints[1] = tPaintsExpert;
     }
 
-
+/*
     public void _InformationButtonClicked()
     {
         if (!informationPanel.activeSelf)
@@ -205,9 +171,19 @@ public class UIManager_MM : MonoBehaviour
             //audioManager.SetVolume(isSoundActive);
             isSoundActive = true;
         }
-    }
+    }*/
 
     public void _ColourButtonClicked()
+    {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
+        mainPanel.SetActive(false);
+        colourPanel.SetActive(true);
+        InitUpdatePaint();
+    }
+
+    public void OpenMenuPaints()
     {
         mainPanel.SetActive(false);
         colourPanel.SetActive(true);
@@ -216,17 +192,27 @@ public class UIManager_MM : MonoBehaviour
 
     public void _ReturnColourButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         colourPanel.SetActive(false);
         mainPanel.SetActive(true);
     }
 
     public void _GameButtonClicked(int indexGame)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
+        loadingPanel.SetActive(true);
         mainMenuManager.LoadAsyncGamePlay(indexGame);
     }
 
     public void _ReturnButtonClicked(int indexScene)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         mainMenuManager.LoadScene(indexScene);
     }
 
@@ -347,6 +333,9 @@ public class UIManager_MM : MonoBehaviour
     {
         if (canChange)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             canChange = false;
             if (currentIndexPaint < tPaints[indexDificulty].Length - 1)
             {
@@ -366,6 +355,9 @@ public class UIManager_MM : MonoBehaviour
     {
         if (canChange)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             canChange = false;
             if (currentIndexPaint > 0)
             {
@@ -404,6 +396,9 @@ public class UIManager_MM : MonoBehaviour
             {
                 if (canChange)
                 {
+                    // Play Sound
+                    audioManager.PlayClip(1, 0.6f);
+                    // ****
                     canChange = false;
                     if (currentIndexPaint > 0)
                     {
@@ -420,6 +415,9 @@ public class UIManager_MM : MonoBehaviour
             {
                 if (canChange)
                 {
+                    // Play Sound
+                    audioManager.PlayClip(1, 0.6f);
+                    // ****
                     canChange = false;
                     if (currentIndexPaint < tPaints[indexDificulty].Length - 1)
                     {

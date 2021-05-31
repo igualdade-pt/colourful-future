@@ -7,14 +7,11 @@ using UnityEngine.UI;
 
 public class UIManager_LM : MonoBehaviour
 {
-    //[SerializeField]
-    //private Image flagImage;
-
-    //[SerializeField]
-    //private Sprite[] flags;
-
     [SerializeField]
     private RectTransform[] tFlags;
+
+    [SerializeField]
+    private RectTransform[] flags;
 
     [SerializeField]
     private float[] xFlags;
@@ -34,17 +31,22 @@ public class UIManager_LM : MonoBehaviour
 
     private LanguageMenuManager languageMenuManager;
 
-    private int currentIndexFlag;
+    private AudioManager audioManager;
 
+    private int currentIndexFlag;
+    private float originalY;
+    private int previousIndexLanguage;
 
     private void Start()
     {
         languageMenuManager = FindObjectOfType<LanguageMenuManager>().GetComponent<LanguageMenuManager>();
+
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     public void InitUpdateFlag(int indexLanguage)
     {
-        // Change Flag
+        /*// Change Flag
         int t = indexLanguage - Mathf.FloorToInt(xFlags.Length / 2);
         if (t < 0)
         {
@@ -102,7 +104,61 @@ public class UIManager_LM : MonoBehaviour
                 break;
         }
 
-        previousTime = Time.time;
+        previousTime = Time.time;*/
+
+        flags[indexLanguage].LeanScale(new Vector3(1.1f, 1.1f, 1f), 0.5f).setLoopPingPong();
+        originalY = flags[indexLanguage].anchoredPosition.y;
+        flags[indexLanguage].LeanMoveY(flags[indexLanguage].anchoredPosition.y + 20f, 0.5f).setLoopPingPong();
+
+        previousIndexLanguage = indexLanguage;
+        /*        for (int i = 0; i < flags.Length; i++)
+                {
+                    if (i == indexLanguage)
+                    {
+                        LeanTween.scale(flags[i], new Vector3(1.1f, 1.1f, 1f), 0.5f).setLoopPingPong();
+                        originalY = flags[i].anchoredPosition.y;
+                        LeanTween.moveY(flags[i], flags[i].anchoredPosition.y + 20f, 0.5f).setLoopPingPong();
+                    }
+                    else
+                    {
+                        LeanTween.cancel(flags[i]);
+                    }
+
+                }*/
+
+        // Change Title
+        switch (indexLanguage)
+        {
+            case 0:
+                // English
+                textLanguage.text = "English";
+                break;
+
+            case 1:
+                // Italian
+                textLanguage.text = "Italiano";
+                break;
+
+            case 2:
+                // Portuguese
+                textLanguage.text = "Português";
+                break;
+
+            case 3:
+                // Spanish
+                textLanguage.text = "Español";
+                break;
+
+            case 4:
+                // Swedish
+                textLanguage.text = "Svenska";
+                break;
+
+            default:
+                // English
+                textLanguage.text = "English";
+                break;
+        }
     }
 
 
@@ -207,7 +263,7 @@ public class UIManager_LM : MonoBehaviour
             Debug.Log("Current Index Flag: " + currentIndexFlag);
             UpdateFlag(currentIndexFlag);
             languageMenuManager.ChangeLanguageIndex = currentIndexFlag;
-        }       
+        }
     }
 
     public void _LeftButtonClick()
@@ -232,12 +288,68 @@ public class UIManager_LM : MonoBehaviour
 
     public void _ConfirmButton()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         languageMenuManager.LoadLevel();
     }
 
     public int ChangeCurrentIndexFlag
     {
         set { currentIndexFlag = value; }
+    }
+
+    public void _CountryButtonClicked(int indexLanguage)
+    {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
+        LeanTween.cancel(flags[previousIndexLanguage]);
+        flags[previousIndexLanguage].LeanScale(new Vector3(1f, 1f, 1f), 0.2f);
+        flags[previousIndexLanguage].LeanMoveY(originalY, 0.2f);
+
+        flags[indexLanguage].LeanScale(new Vector3(1.1f, 1.1f, 1f), 0.5f).setLoopPingPong();
+        originalY = flags[indexLanguage].anchoredPosition.y;
+        flags[indexLanguage].LeanMoveY(flags[indexLanguage].anchoredPosition.y + 20f, 0.5f).setLoopPingPong();
+
+        previousIndexLanguage = indexLanguage;
+
+        // Change Title
+        switch (indexLanguage)
+        {
+            case 0:
+                // English
+                textLanguage.text = "English";
+                break;
+
+            case 1:
+                // Italian
+                textLanguage.text = "Italiano";
+                break;
+
+            case 2:
+                // Portuguese
+                textLanguage.text = "Português";
+                break;
+
+            case 3:
+                // Spanish
+                textLanguage.text = "Español";
+                break;
+
+            case 4:
+                // Swedish
+                textLanguage.text = "Svenska";
+                break;
+
+            default:
+                // English
+                textLanguage.text = "English";
+                break;
+        }
+
+        languageMenuManager.ChangeLanguageIndex = indexLanguage;
+
     }
 
 }

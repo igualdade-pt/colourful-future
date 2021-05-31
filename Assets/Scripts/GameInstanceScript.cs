@@ -10,11 +10,13 @@ public class GameInstanceScript : MonoBehaviour
 
     private int indexGame = 0;
 
-    private int indexLanguage = 0;
+    private int indexLanguage = -1;
 
     private int indexLevelDifficulty = 0;
 
     private bool cameFromStartMenu = false;
+
+    private bool cameFromPainting = false;
 
     /// <summary>
     /// Index of the chosen language
@@ -51,5 +53,14 @@ public class GameInstanceScript : MonoBehaviour
     {
         get { return cameFromStartMenu; }
         set { cameFromStartMenu = value; }
+    }
+
+    /// <summary>
+    /// The player came from the paiting
+    /// </summary>
+    public bool CameFromPainting
+    {
+        get { return cameFromPainting; }
+        set { cameFromPainting = value; }
     }
 }

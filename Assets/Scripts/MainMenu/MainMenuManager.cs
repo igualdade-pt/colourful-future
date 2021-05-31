@@ -54,7 +54,13 @@ public class MainMenuManager : MonoBehaviour
         uiManager_MM.UpdateLanguage(indexLanguage);
 
         uiManager_MM.UpdateDificulty(gameInstance.DifficultyLevelIndex);
-        
+
+        if (gameInstance.CameFromPainting)
+        {
+            uiManager_MM.OpenMenuPaints();
+            gameInstance.CameFromPainting = false;
+        }
+
     }
 
     public void LoadScene(int indexScene)

@@ -75,6 +75,18 @@ public class AgeMenuManager : MonoBehaviour
 
     private void LoadScene()
     {
-        SceneManager.LoadScene(indexSceneToLoad);
+        PlayerPrefs.SetInt("languageSystem", indexLanguage);
+        Debug.Log("Index Language saved: " + PlayerPrefs.GetInt("languageSystem", 0));
+        gameInstance.LanguageIndex = indexLanguage;
+
+        if (gameInstance.CameFromStartMenu)
+        {
+            gameInstance.CameFromStartMenu = false;
+            SceneManager.LoadScene(indexSceneToLoad - 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(indexSceneToLoad);
+        }
     }
 }
