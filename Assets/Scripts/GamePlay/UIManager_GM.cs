@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIManager_GM : MonoBehaviour
 {
     private GameplayManager gameplayManager;
+    private AudioManager audioManager;
 
     [SerializeField]
     private GameObject loadingPanel;
@@ -31,6 +32,17 @@ public class UIManager_GM : MonoBehaviour
     private Text correctRemainText;
 
     [SerializeField]
+    private Transform correctRemainPool;
+
+    [SerializeField]
+    private Image correctRemainImage;
+
+    [SerializeField]
+    private Color correctRemainColor;
+
+    private Image[] correctRemainImages;
+
+    [SerializeField]
     private Text timerRemainText;
 
     [SerializeField]
@@ -39,10 +51,15 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private LineConfig lineConfig;
 
+
     private int totalCorrectMoves;
+
+    private int startGame = 0;
+
     private void Start()
     {
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         loadingPanel.SetActive(false);
         gameEndedPanel.SetActive(false);
         colourPanel.SetActive(false);
@@ -90,6 +107,9 @@ public class UIManager_GM : MonoBehaviour
 
     public void _RestartButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         loadingPanel.SetActive(true);
         var x = SceneManager.GetActiveScene();
         gameplayManager.LoadSelectedScene(x.buildIndex);
@@ -103,6 +123,9 @@ public class UIManager_GM : MonoBehaviour
 
     public void _Return()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         loadingPanel.SetActive(true);
         gameplayManager.LoadSelectedScene(3);
     }
@@ -117,11 +140,21 @@ public class UIManager_GM : MonoBehaviour
     {
         correctRemainText.text = value.ToString() + "/" + totalCorrectMoves.ToString();
 
+        int lenght = correctRemainPool.childCount;
+
+        for (int i = 0; i < lenght; i++)
+        {
+            if (value-1 == i)
+            {
+                correctRemainPool.GetChild(i).GetComponent<Image>().color = correctRemainColor;
+            }
+        }
+
     }
 
     public void UpdateTimer(int min, int sec)
     {
-        timerRemainText.text = min.ToString() + ":" + sec.ToString("00");    
+        timerRemainText.text = min.ToString() + ":" + sec.ToString("00");
     }
 
     public void SetTimerActive(bool value)
@@ -129,9 +162,45 @@ public class UIManager_GM : MonoBehaviour
         timerRemainText.gameObject.SetActive(value);
     }
 
-    public void SetCorrectMovesTextActive(bool value)
+    public void SetCorrectMovesTextActive(bool value, int numberOfRemains)
     {
         correctRemainText.gameObject.SetActive(value);
+
+        Vector3 position = new Vector3(-45, 0, 0);
+
+        Quaternion rotation = Quaternion.Euler(0, 0, 90);
+
+        for (int i = 0; i < numberOfRemains; i++)
+        {
+            if (i == 0 || i == numberOfRemains / 2)
+            {
+                rotation = Quaternion.Euler(0, 0, -90);
+            }
+            else
+            {
+                rotation = Quaternion.Euler(0, 0, 90);
+            }
+    
+            if (i == 1 || i == (numberOfRemains / 2) + 1)
+            {
+                position.y -= 65;
+            }
+            else if (i > 1 || i > (numberOfRemains / 2) +1)
+            {
+                position.y -= 95;
+            } 
+
+            if (numberOfRemains/2 == i)
+            {
+                position.y = 0;
+                position.x *= -1;
+            }
+
+            var g = Instantiate(correctRemainImage, correctRemainPool);
+
+            g.transform.localPosition = position;
+            g.transform.localRotation = rotation;
+        }
     }
 
     public void SetTotalCorrectMovesTextActive(int value)
@@ -147,16 +216,20 @@ public class UIManager_GM : MonoBehaviour
 
     public void _BrushSizeClicked(float value)
     {
-        lineConfig.scale = value;    
+        lineConfig.scale = value;
     }
 
     public void SetColourPanel(bool value)
     {
-        colourPanel.SetActive(value);       
+        colourPanel.SetActive(value);
     }
 
     public void _ScreenShotButton()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        audioManager.PlayClip(2, 0.6f);
+        // ****
         StartCoroutine(CaptureScreen());
     }
     public IEnumerator CaptureScreen()
@@ -177,5 +250,13 @@ public class UIManager_GM : MonoBehaviour
         // Show UI after we're done
         colourPanel.SetActive(true);
         screenShotPanel.SetActive(false);
+    }
+
+
+    public void _PlayButtonSound()
+    {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
     }
 }

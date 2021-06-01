@@ -23,6 +23,9 @@ public class GameplayManager : MonoBehaviour
 
     private UIManager_GM uiManager_GM;
 
+    private AudioManager audioManager;
+    private MusicManagerScript musicManager;
+
     private GameInstanceScript gameInstance;
 
     private Player_Script playerScript;
@@ -184,6 +187,23 @@ public class GameplayManager : MonoBehaviour
 
     // ***************************************************************************************** //
 
+    [Header("Sounds")]
+    [Space]
+    [SerializeField]
+    private int indexSoundVictory = 3;
+
+    [SerializeField]
+    private int indexSoundRight = 0;
+
+    [SerializeField]
+    private int indexSoundLost = 4;
+
+    [SerializeField]
+    private int indexSoundWrong = 1;
+
+    [SerializeField]
+    private int indexSoundCountDown = 0;
+
     private void Start()
     {
         if (!gameplayTest)
@@ -244,9 +264,8 @@ public class GameplayManager : MonoBehaviour
         switch (indexGameSelected)
         {
             case 0:
-
-                MatchColourStart();
                 matchColourGamePool.SetActive(true);
+                MatchColourStart();
                 uiManager_GM.SetColourPanel(true);
                 break;
 
@@ -282,7 +301,7 @@ public class GameplayManager : MonoBehaviour
                 uiManager_GM.UpdateTimer(min, sec);
 
                 uiManager_GM.SetTotalCorrectMovesTextActive(totalNumberOfRightConnects);
-                uiManager_GM.SetCorrectMovesTextActive(true);
+                uiManager_GM.SetCorrectMovesTextActive(true, totalNumberOfRightConnects);
                 uiManager_GM.UpdateCorrectsMoves(0);
 
                 dragConnectGamePool.SetActive(true);
@@ -307,15 +326,17 @@ public class GameplayManager : MonoBehaviour
                 break;
         }
 
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
 
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
 
+        musicManager.LowMusic();
     }
 
 
     //MATCH THE COLOUR GAME
     private void MatchColourStart()
     {
-
     }
 
     // ******************************************************
@@ -433,11 +454,17 @@ public class GameplayManager : MonoBehaviour
             uiManager_GM.UpdateCorrectsMoves(totalNumberOfRightConnects - numberOfRightConnects);
             if (numberOfRightConnects <= 0)
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundVictory, 0.6f);
+                // ****
                 uiManager_GM.UpdateCorrectsMoves(totalNumberOfRightConnects);
                 uiManager_GM.SetGameEndedPanel(true);
             }
             else
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundRight, 0.6f);
+                // ****
                 StartCoroutine(NextCard());
             }
             playerScript.GameStarted(false);
@@ -449,6 +476,9 @@ public class GameplayManager : MonoBehaviour
             uiManager_GM.UpdateAttempts(numberOfAttemptsToConnect);
             if (numberOfAttemptsToConnect <= 0)
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundLost, 0.6f);
+                // ****
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
                 if (linePool.transform.childCount > 0)
@@ -463,6 +493,9 @@ public class GameplayManager : MonoBehaviour
             }
             else
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundWrong, 0.6f);
+                // ****
                 StartCoroutine(NextCard());
             }
             playerScript.GameStarted(false);
@@ -518,6 +551,12 @@ public class GameplayManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             counter--;
+            if (counter <= 3 && counter > 0)
+            {
+                // Play Sound
+                audioManager.PlayClip(indexSoundCountDown, 0.6f);
+                // ****
+            }
             uiManager_GM.UpdateTimer(min, counter);
         }
         CountdownMin();
@@ -534,12 +573,18 @@ public class GameplayManager : MonoBehaviour
         }
         else
         {
+            // Play Sound
+            audioManager.PlayClip(indexSoundWrong, 0.6f);
+            // ****
             StopAllCoroutines();
             selectedCharacterFailedIndexes.Add(selectedCharacterIndexes[numberOfMoves]);
             numberOfAttemptsToConnect--;
             uiManager_GM.UpdateAttempts(numberOfAttemptsToConnect);
             if (numberOfAttemptsToConnect <= 0)
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundLost, 0.6f);
+                // ****
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
                 Debug.Log("perdeu");
@@ -858,21 +903,33 @@ public class GameplayManager : MonoBehaviour
         bool success = false;
         if (cardsRevealed[0].CardIndex == cardsRevealed[1].CardIndex)
         {
+            // Play Sound
+            audioManager.PlayClip(indexSoundRight, 0.6f);
+            // ****
             //Check if the indexes are the same
             success = true;
             numberOfRightPairs++;
             if (numberOfCards == numberOfRightPairs * 2)
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundVictory, 0.6f);
+                // ****
                 uiManager_GM.SetGameEndedPanel(true);
                 playerScript.GameStarted(false);
             }
         }
         else
         {
+            // Play Sound
+            audioManager.PlayClip(indexSoundWrong, 0.6f);
+            // ****
             numberOfAttempts--;
             uiManager_GM.UpdateAttempts(numberOfAttempts);
             if (numberOfAttempts <= 0)
             {
+                // Play Sound
+                audioManager.PlayClip(indexSoundLost, 0.6f);
+                // ****
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
                 playerScript.GameStarted(false);
@@ -908,6 +965,8 @@ public class GameplayManager : MonoBehaviour
 
     public void LoadSelectedScene(int indexSelected)
     {
+        musicManager.UpMusic();
+
         if (indexGameSelected == 0)
         {
             gameInstance.CameFromPainting = true;

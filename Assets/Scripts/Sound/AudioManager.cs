@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
     private float buttonVolume = 0.2f;
     private float maxVolumeSFX;
     private float maxVolumeMusic;
+    private float valueToDecrease;
 
     private void Start()
     {
