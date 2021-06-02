@@ -22968,10 +22968,10 @@ MonoBehaviour:
   - 4
   - 3
   numberOfAttemptsByDifficulty: 0600000009000000
-  indexSoundVictory: 3
-  indexSoundRight: 2
-  indexSoundLost: 1
-  indexSoundWrong: 1
+  indexSoundVictory: 9
+  indexSoundRight: 8
+  indexSoundLost: 7
+  indexSoundWrong: 6
   indexSoundCountDown: 0
 --- !u!1 &1719271254
 GameObject:

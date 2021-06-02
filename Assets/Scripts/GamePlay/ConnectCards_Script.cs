@@ -31,6 +31,7 @@ public class ConnectCards_Script : MonoBehaviour
 
     private bool canFlip = true;
 
+    private AudioManager audioManager;
 
     [Header("Animation Card")]
     [SerializeField]
@@ -39,6 +40,8 @@ public class ConnectCards_Script : MonoBehaviour
 
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+
         spriteRenderer.sprite = cardBack;
         canFlip = true;
 

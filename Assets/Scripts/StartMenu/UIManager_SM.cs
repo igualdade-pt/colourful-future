@@ -25,6 +25,12 @@ public class UIManager_SM : MonoBehaviour
     [SerializeField]
     private GameObject[] buttonBookSelectedPanel;
 
+    [SerializeField]
+    private string[] partnersLinks;
+
+    [SerializeField]
+    private string[] gamesLink;
+
 
     [Header("Panels")]
     [Space]
@@ -121,6 +127,35 @@ public class UIManager_SM : MonoBehaviour
         }
     }
 
+    /*
+        Colourful Children - https://colourfulchildren.eu/
+
+        Erasmus+ - https://ec.europa.eu/programmes/erasmus-plus/about_en 
+
+        Associação igualdade.pt - https://igualdade.pt
+
+        CIEG-ISCSP-ULisboa - http://cieg.iscsp.ulisboa.pt/ 
+
+         Härryda - https://www.harryda.se/
+
+        Murcia - https://www.murcia.es         
+
+        Ravenna - https://www.comune.ra.it/ 
+
+        Torres Vedras - http://cm-tvedras.pt/ 
+     */
+
+    public void _PartnersButtonClicked(int index)
+    {
+        if (informationPanel.activeSelf)
+        {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            Application.OpenURL(partnersLinks[index]);
+        }
+    }
+
     public void _CloseInformationButtonClicked()
     {
         if (informationPanel.activeSelf)
@@ -194,7 +229,7 @@ public class UIManager_SM : MonoBehaviour
             audioManager.PlayClip(0, 0.6f);
             // ****
             bookSelected = indexBook;
-            InitUpdatePaint();
+            InitUpdatePages();
             buttonsBooksPanel.SetActive(false);
             //buttonCloseBooksPanel.SetActive(false);
 
@@ -236,6 +271,16 @@ public class UIManager_SM : MonoBehaviour
             gamePanel.SetActive(true);
         }
     }
+    public void _GameButtonClicked(int index)
+    {
+        if (gamePanel.activeSelf)
+        {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            Application.OpenURL("market://details?id=" + gamesLink[index]);
+        }
+    }
 
     public void _CloseGamesButtonClicked()
     {
@@ -273,7 +318,7 @@ public class UIManager_SM : MonoBehaviour
 
     }
 
-    private void InitUpdatePaint()
+    private void InitUpdatePages()
     {
         currentIndexPage = 0;
         // Change Paint

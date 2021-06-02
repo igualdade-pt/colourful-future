@@ -259,7 +259,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         uiManager_GM = FindObjectOfType<UIManager_GM>().GetComponent<UIManager_GM>();
-
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         // Set Only the Game Selected
         switch (indexGameSelected)
         {
@@ -324,9 +324,7 @@ public class GameplayManager : MonoBehaviour
 
             default:
                 break;
-        }
-
-        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+        }        
 
         musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
 
@@ -440,6 +438,9 @@ public class GameplayManager : MonoBehaviour
             special.GetComponent<ConnectCards_Script>().FlipCard();
         }
 
+        // Play Sound
+        audioManager.PlayClip(4, 0.8f);
+        // ****
         playerScript.GameStarted(true);
         StartCoroutine(CountdownSec());
     }
@@ -507,6 +508,9 @@ public class GameplayManager : MonoBehaviour
         numberOfMoves++;
         int numberOfCardsCreated = connectCardPool.transform.childCount;
 
+        // Play Sound
+        audioManager.PlayClip(4, 0.8f);
+        // ****
         for (int i = 0; i < numberOfCardsCreated; i++)
         {
             connectCardPool.transform.GetChild(i).gameObject.GetComponent<ConnectCards_Script>().FlipCard();
@@ -735,6 +739,10 @@ public class GameplayManager : MonoBehaviour
         specialCard.GetComponent<ConnectCards_Script>().FlipCard();
 
         selectedCharacterIndexes[numberOfMoves] = indexSelected;
+
+        // Play Sound
+        audioManager.PlayClip(4, 0.8f);
+        // ****
     }
 
 
@@ -852,6 +860,10 @@ public class GameplayManager : MonoBehaviour
                 cardIndexes.Remove(cardIndexes[randomIndex]);
             }
         }
+
+        // Play Sound
+        audioManager.PlayClip(4, 0.8f);
+        // ****
     }
 
 
@@ -864,6 +876,10 @@ public class GameplayManager : MonoBehaviour
         {
             card.GetComponent<Cards_Script>().FlipCards(true);
         }
+
+        // Play Sound
+        audioManager.PlayClip(4, 0.8f);
+        // ****
 
         playerScript.GameStarted(true);
     }

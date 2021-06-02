@@ -50,6 +50,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e02277223e235e4e96fbb2357cfa503, type: 3}
   - {fileID: 8300000, guid: be01fb91daeb0614b901a2933312d828, type: 3}
   - {fileID: 8300000, guid: 2b28f77d5c14cfc41a360dcb1a45da1f, type: 3}
+  - {fileID: 8300000, guid: 346da0feac5527e48a1fc737418ca1b9, type: 3}
+  - {fileID: 8300000, guid: e4f84ba9ffa4f014bb78d300a4f9df4b, type: 3}
+  - {fileID: 8300000, guid: 64b655c6e0ea3a248b8eb0061a766626, type: 3}
+  - {fileID: 8300000, guid: fec6fff3d707b1d41bfe26555c508b52, type: 3}
+  - {fileID: 8300000, guid: 59a017fe4beb8b34b8cd4539e9e709e3, type: 3}
+  - {fileID: 8300000, guid: 0716c9defb12d6e48ae33c147c9b3cbd, type: 3}
   buttonVolume: 0.2
 --- !u!82 &7318535270373748891
 AudioSource:

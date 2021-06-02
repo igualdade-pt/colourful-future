@@ -208,7 +208,7 @@ public class UIManager_MM : MonoBehaviour
         mainMenuManager.LoadAsyncGamePlay(indexGame);
     }
 
-    public void _ReturnButtonClicked(int indexScene)
+    public void _SettingsButtonClicked(int indexScene)
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);

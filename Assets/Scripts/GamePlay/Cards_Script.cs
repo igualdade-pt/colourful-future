@@ -33,6 +33,8 @@ public class Cards_Script : MonoBehaviour
 
     private GameplayManager gameplayManager;
 
+    private AudioManager audioManager;
+
     private bool remainVisible = false;
 
     private bool gameStarted = false;
@@ -54,10 +56,12 @@ public class Cards_Script : MonoBehaviour
     }
 
     public void CardClicked()
-    {
-        
+    {        
         if (canFlip && !remainVisible && !gameplayManager.TwoCardsRevealed())
         {
+            // Play Sound
+            audioManager.PlayClip(4, 0.8f);
+            // ****
             canFlip = false;
             // Rotation And Flip Sprite
             if (spriteRenderer.sprite == cardBack) // Turn Face
@@ -114,6 +118,7 @@ public class Cards_Script : MonoBehaviour
     public void SetGameplayManager(GameplayManager gm)
     {
         gameplayManager = gm;
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     public void SetRemainVisible(bool temp)
@@ -133,7 +138,7 @@ public class Cards_Script : MonoBehaviour
     public void FlipCards(bool value)
     {
         if (canFlip && !remainVisible)
-        {
+        {            
             canFlip = false;
             // Rotation And Flip Sprite
             if (spriteRenderer.sprite == cardBack) // Turn Face
