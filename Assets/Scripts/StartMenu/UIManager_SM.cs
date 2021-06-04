@@ -467,7 +467,9 @@ public class UIManager_SM : MonoBehaviour
                 currentIndexPage++;
                 UpdatePage(currentIndexPage);
                 // Play Sound
-                audioManager.PlayClip(0, 0.6f);
+                audioManager.PlayClip(0, 0.4f);
+                // ****
+                audioManager.PlayClip(10, 0.6f);
                 // ****
             }
             else
@@ -490,7 +492,9 @@ public class UIManager_SM : MonoBehaviour
                 currentIndexPage--;
                 UpdatePage(currentIndexPage);
                 // Play Sound
-                audioManager.PlayClip(0, 0.6f);
+                audioManager.PlayClip(0, 0.4f);
+                // ****
+                audioManager.PlayClip(10, 0.6f);
                 // ****
             }
             else
@@ -532,7 +536,9 @@ public class UIManager_SM : MonoBehaviour
                         currentIndexPage++;
                         UpdatePage(currentIndexPage);
                         // Play Sound
-                        audioManager.PlayClip(1, 0.6f);
+                        audioManager.PlayClip(1, 0.4f);
+                        // ****
+                        audioManager.PlayClip(10, 0.6f);
                         // ****
                     }
                     else
@@ -552,7 +558,9 @@ public class UIManager_SM : MonoBehaviour
                         currentIndexPage--;
                         UpdatePage(currentIndexPage);
                         // Play Sound
-                        audioManager.PlayClip(1, 0.6f);
+                        audioManager.PlayClip(1, 0.4f);
+                        // ****
+                        audioManager.PlayClip(10, 0.6f);
                         // ****
                     }
                     else

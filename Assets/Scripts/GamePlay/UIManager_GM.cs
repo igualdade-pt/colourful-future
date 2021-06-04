@@ -40,7 +40,7 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private Color correctRemainColor;
 
-    private Image[] correctRemainImages;
+    /*private Image[] correctRemainImages;*/
 
     [SerializeField]
     private Text timerRemainText;
@@ -54,7 +54,7 @@ public class UIManager_GM : MonoBehaviour
 
     private int totalCorrectMoves;
 
-    private int startGame = 0;
+    /*private int startGame = 0;*/
 
     private void Start()
     {
@@ -222,6 +222,7 @@ public class UIManager_GM : MonoBehaviour
     public void SetColourPanel(bool value)
     {
         colourPanel.SetActive(value);
+        lineConfig.scale = 0.6f;
     }
 
     public void _ScreenShotButton()
