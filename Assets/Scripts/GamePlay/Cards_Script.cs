@@ -20,7 +20,7 @@ public class Cards_Script : MonoBehaviour
     [SerializeField]
     private Sprite[] thirdSetOfCards;
 
-    private Sprite[] [] cardsFacesByType = new Sprite[3][];
+    private Sprite[][] cardsFacesByType = new Sprite[3][];
 
     [SerializeField]
     private Sprite cardBack;
@@ -56,7 +56,7 @@ public class Cards_Script : MonoBehaviour
     }
 
     public void CardClicked()
-    {        
+    {
         if (canFlip && !remainVisible && !gameplayManager.TwoCardsRevealed())
         {
             // Play Sound
@@ -73,7 +73,7 @@ public class Cards_Script : MonoBehaviour
             {
                 myAnimator.SetTrigger("FlipFront");
             }
-        }        
+        }
     }
 
     private void FinishAnimation()
@@ -138,7 +138,7 @@ public class Cards_Script : MonoBehaviour
     public void FlipCards(bool value)
     {
         if (canFlip && !remainVisible)
-        {            
+        {
             canFlip = false;
             // Rotation And Flip Sprite
             if (spriteRenderer.sprite == cardBack) // Turn Face

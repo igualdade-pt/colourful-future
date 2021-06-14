@@ -973,12 +973,6 @@ public class GameplayManager : MonoBehaviour
     // ******************************************************
 
 
-
-    public void GameEnded()
-    {
-        uiManager_GM.SetGameEndedPanel(true);
-    }
-
     public void LoadSelectedScene(int indexSelected)
     {
         musicManager.UpMusic();
