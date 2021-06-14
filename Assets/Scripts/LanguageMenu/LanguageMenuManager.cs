@@ -33,7 +33,7 @@ public class LanguageMenuManager : MonoBehaviour
         DontDestroyOnLoad(gI);
 
         // For test
-        PlayerPrefs.DeleteAll();  //-> This is for tests
+        //PlayerPrefs.DeleteAll();  //-> This is for tests
 
         // Instantiate Music Manager Prefab
         if (FindObjectOfType<MusicManagerScript>() != null)
