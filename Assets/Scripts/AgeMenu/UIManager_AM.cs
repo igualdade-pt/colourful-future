@@ -39,7 +39,7 @@ public class UIManager_AM : MonoBehaviour
 
             case 3:
                 // Spanish
-                textLanguage.text = "¿Cuantos años tienes?";
+                textLanguage.text = "¿Cuántos años tienes?";
                 break;
 
             case 4:

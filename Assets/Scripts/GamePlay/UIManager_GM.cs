@@ -1,6 +1,8 @@
-﻿using PaintCraft.Tools;
+﻿using NatSuite.Sharing;
+using PaintCraft.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -51,6 +53,11 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private LineConfig lineConfig;
 
+    [Header("Text")]
+    [Space]
+    [SerializeField]
+    private Text textGameEnded;
+
 
     private int totalCorrectMoves;
 
@@ -69,14 +76,14 @@ public class UIManager_GM : MonoBehaviour
         correctRemainText.gameObject.SetActive(false);
         attemptsRemainText.transform.parent.gameObject.SetActive(false);
 
-        StartCoroutine(x());
+        //StartCoroutine(x());
     }
 
     private IEnumerator x()
     {
         yield return new WaitForEndOfFrame();
 
-        rectPaint.offsetMin = new Vector2(0, -130);
+        rectPaint.offsetMin = new Vector2(0, /*-130*/160);
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -84,23 +91,28 @@ public class UIManager_GM : MonoBehaviour
         switch (indexLanguage)
         {
             case 0:
-
+                textGameEnded.text = "PLAY AGAIN?";
                 break;
+
             case 1:
-
+                textGameEnded.text = "GIOCA DI NUOVO?";
                 break;
+
             case 2:
-
+                textGameEnded.text = "JOGAR DE NOVO?";
                 break;
+
             case 3:
-
+                textGameEnded.text = "¿JUGAR DE NUEVO?";
                 break;
+
             case 4:
+                textGameEnded.text = "SPELA IGEN?";
                 break;
 
             default:
                 Debug.Log("UiManager_GM Menu, Unavailable language, English Selected: " + indexLanguage);
-
+                textGameEnded.text = "PLAY AGAIN?";
                 break;
         }
     }
@@ -244,13 +256,21 @@ public class UIManager_GM : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         // Take screenshot
-        string day = System.DateTime.Now.ToString("dd-MM-yy");
+        /*string day = System.DateTime.Now.ToString("dd-MM-yy");
         string hour = System.DateTime.Now.ToString("HH-mm-ss");
-        ScreenCapture.CaptureScreenshot("screenshot_" + day + "_" + hour + ".png");
+        string nameFile = "screenshot_" + day + "_" + hour + ".png";
+        ScreenCapture.CaptureScreenshot(nameFile);*/
+
+        var screenshot = ScreenCapture.CaptureScreenshotAsTexture();
 
         // Show UI after we're done
         colourPanel.SetActive(true);
         screenShotPanel.SetActive(false);
+
+        // Share
+        new SharePayload()
+            .AddImage(screenshot)
+            .Commit();
     }
 
 

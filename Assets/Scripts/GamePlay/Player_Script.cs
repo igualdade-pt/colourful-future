@@ -215,7 +215,13 @@ public class Player_Script : MonoBehaviour
                             RaycastHit2D hit = Physics2D.Linecast(ray, ray);
                             Debug.DrawLine(ray, ray, Color.red);
 
-                            CreateBrush();
+                            if (hit.collider != null)
+                            {
+                                if (hit.collider.tag == "CharacterCard")
+                                {
+                                    CreateBrush();
+                                }
+                            }
                         }
                         else if (touch.phase == TouchPhase.Moved && currentLineRenderer != null)
                         {
@@ -233,9 +239,21 @@ public class Player_Script : MonoBehaviour
                             RaycastHit2D hit = Physics2D.Linecast(ray, ray);
                             Debug.DrawLine(ray, ray, Color.red);
 
-                            currentLineRenderer.gameObject.SetActive(false);
-                            Destroy(currentLineRenderer.gameObject);
+                            if (hit.collider != null)
+                            {
+                                if (hit.collider.tag == "ConnectCard")
+                                {
+                                    gameplayManager.CheckingCard(hit.collider.gameObject);
+                                }
+                                currentLineRenderer.gameObject.SetActive(false);
+                                Destroy(currentLineRenderer.gameObject);
 
+                            }
+                            else
+                            {
+                                currentLineRenderer.gameObject.SetActive(false);
+                                Destroy(currentLineRenderer.gameObject);
+                            }
                             currentLineRenderer = null;
                         }
                     }
