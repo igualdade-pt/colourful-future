@@ -5607,7 +5607,7 @@ GameObject:
   - component: {fileID: 1158448119}
   - component: {fileID: 1158448118}
   m_Layer: 5
-  m_Name: ButtonES
+  m_Name: ButtonPT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5707,7 +5707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 19510757d2f3d6f48be91226c08a53e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fdefce7f48a0b34f8331730809ae496, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6736,7 +6736,7 @@ GameObject:
   - component: {fileID: 1306752534}
   - component: {fileID: 1306752533}
   m_Layer: 5
-  m_Name: ButtonPT
+  m_Name: ButtonIT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6836,7 +6836,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2fdefce7f48a0b34f8331730809ae496, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7587617690e9145409a751f8dc6f42d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10726,7 +10726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2140760042
 RectTransform:
   m_ObjectHideFlags: 0
