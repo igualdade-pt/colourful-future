@@ -54,18 +54,212 @@ public class UIManager_SM : MonoBehaviour
 
     private bool isSoundActive = true;
 
+    [Header("Texts")]
+    [Space]
+    [SerializeField]
+    private GameObject[] textsInfo;
 
     [Header("Book")]
     [Space]
     [SerializeField]
-    private RectTransform[] tPagesBookTV;
+    private GameObject page;
 
     [SerializeField]
-    private RectTransform[] tPaintsExpert;
+    private GameObject handGuide;
 
-    private RectTransform[][] tPages = new RectTransform[4][];
 
     [SerializeField]
+    [Header("IT")]
+    private GameObject bookIT_EN;
+
+    [SerializeField]
+    private Sprite[] pagesBookIT_EN;
+
+    private RectTransform[] tPagesBookIT_EN;
+
+
+    [SerializeField]
+    private GameObject bookIT_IT;
+
+    [SerializeField]
+    private Sprite[] pagesBookIT_IT;
+
+    private RectTransform[] tPagesBookIT_IT;
+
+
+    [SerializeField]
+    private GameObject bookIT_PT;
+
+    [SerializeField]
+    private Sprite[] pagesBookIT_PT;
+
+    private RectTransform[] tPagesBookIT_PT;
+
+
+    [SerializeField]
+    private GameObject bookIT_ES;
+
+    [SerializeField]
+    private Sprite[] pagesBookIT_ES;
+
+    private RectTransform[] tPagesBookIT_ES;
+
+
+    [SerializeField]
+    private GameObject bookIT_SE;
+
+    [SerializeField]
+    private Sprite[] pagesBookIT_SE;
+
+    private RectTransform[] tPagesBookIT_SE;
+
+
+    // **************************************************
+    [SerializeField]
+    [Header("PT")]
+    private GameObject bookPT_EN;
+
+    [SerializeField]
+    private Sprite[] pagesBookPT_EN;
+
+    private RectTransform[] tPagesBookPT_EN;
+
+
+    [SerializeField]
+    private GameObject bookPT_IT;
+
+    [SerializeField]
+    private Sprite[] pagesBookPT_IT;
+
+    private RectTransform[] tPagesBookPT_IT;
+
+
+    [SerializeField]
+    private GameObject bookPT_PT;
+
+    [SerializeField]
+    private Sprite[] pagesBookPT_PT;
+
+    private RectTransform[] tPagesBookPT_PT;
+
+
+    [SerializeField]
+    private GameObject bookPT_ES;
+
+    [SerializeField]
+    private Sprite[] pagesBookPT_ES;
+
+    private RectTransform[] tPagesBookPT_ES;
+
+
+    [SerializeField]
+    private GameObject bookPT_SE;
+
+    [SerializeField]
+    private Sprite[] pagesBookPT_SE;
+
+    private RectTransform[] tPagesBookPT_SE;
+
+    // **************************************************
+    [SerializeField]
+    [Header("ES")]
+    private GameObject bookES_EN;
+
+    [SerializeField]
+    private Sprite[] pagesBookES_EN;
+
+    private RectTransform[] tPagesBookES_EN;
+
+
+    [SerializeField]
+    private GameObject bookES_IT;
+
+    [SerializeField]
+    private Sprite[] pagesBookES_IT;
+
+    private RectTransform[] tPagesBookES_IT;
+
+
+    [SerializeField]
+    private GameObject bookES_PT;
+
+    [SerializeField]
+    private Sprite[] pagesBookES_PT;
+
+    private RectTransform[] tPagesBookES_PT;
+
+
+    [SerializeField]
+    private GameObject bookES_ES;
+
+    [SerializeField]
+    private Sprite[] pagesBookES_ES;
+
+    private RectTransform[] tPagesBookES_ES;
+
+
+    [SerializeField]
+    private GameObject bookES_SE;
+
+    [SerializeField]
+    private Sprite[] pagesBookES_SE;
+
+    private RectTransform[] tPagesBookES_SE;
+
+    // **************************************************
+
+    [SerializeField]
+    [Header("SE")]
+    private GameObject bookSE_EN;
+
+    [SerializeField]
+    private Sprite[] pagesBookSE_EN;
+
+    private RectTransform[] tPagesBookSE_EN;
+
+
+    [SerializeField]
+    private GameObject bookSE_IT;
+
+    [SerializeField]
+    private Sprite[] pagesBookSE_IT;
+
+    private RectTransform[] tPagesBookSE_IT;
+
+
+    [SerializeField]
+    private GameObject bookSE_PT;
+
+    [SerializeField]
+    private Sprite[] pagesBookSE_PT;
+
+    private RectTransform[] tPagesBookSE_PT;
+
+
+    [SerializeField]
+    private GameObject bookSE_ES;
+
+    [SerializeField]
+    private Sprite[] pagesBookSE_ES;
+
+    private RectTransform[] tPagesBookSE_ES;
+
+
+    [SerializeField]
+    private GameObject bookSE_SE;
+
+    [SerializeField]
+    private Sprite[] pagesBookSE_SE;
+
+    private RectTransform[] tPagesBookSE_SE;
+
+    // **************************************************
+
+
+    private RectTransform[][][] tPages = new RectTransform[4][][] { new RectTransform[5][], new RectTransform[5][] , new RectTransform[5][] , new RectTransform[5][] };
+
+    [SerializeField]
+    [Space]
     private float[] xPages;
 
     [SerializeField]
@@ -83,6 +277,7 @@ public class UIManager_SM : MonoBehaviour
     private bool canDrag;
 
     private int bookSelected;
+    private int indexLanguage;
 
     private void Awake()
     {
@@ -95,6 +290,8 @@ public class UIManager_SM : MonoBehaviour
         {
             buttonBookSelectedPanel[i].SetActive(false);
         }
+
+        handGuide.SetActive(true);
     }
 
     private void Start()
@@ -103,8 +300,233 @@ public class UIManager_SM : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         isSoundActive = true;
         canChange = true;
-        tPages[0] = tPagesBookTV;
-        tPages[1] = tPaintsExpert;
+
+        // Info
+        for (int i = 0; i < textsInfo.Length; i++)
+        {
+            textsInfo[i].SetActive(false);
+        }
+
+        //Book IT
+        tPagesBookIT_EN = new RectTransform[pagesBookIT_EN.Length];
+        tPagesBookIT_IT = new RectTransform[pagesBookIT_IT.Length];
+        tPagesBookIT_PT = new RectTransform[pagesBookIT_PT.Length];
+        tPagesBookIT_ES = new RectTransform[pagesBookIT_ES.Length];
+        tPagesBookIT_SE = new RectTransform[pagesBookIT_SE.Length];
+
+        for (int i = 0; i < pagesBookIT_EN.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookIT_EN.transform);
+            tPagesBookIT_EN[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookIT_EN[i];
+        }
+
+        for (int i = 0; i < pagesBookIT_IT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookIT_IT.transform);
+            tPagesBookIT_IT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookIT_IT[i];
+        }
+
+        for (int i = 0; i < pagesBookIT_PT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookIT_PT.transform);
+            tPagesBookIT_PT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookIT_PT[i];
+        }
+
+        for (int i = 0; i < pagesBookIT_ES.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookIT_ES.transform);
+            tPagesBookIT_ES[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookIT_ES[i];
+        }
+
+        for (int i = 0; i < pagesBookIT_SE.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookIT_SE.transform);
+            tPagesBookIT_SE[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookIT_SE[i];
+        }
+
+
+        //Book PT
+        tPagesBookPT_EN = new RectTransform[pagesBookPT_EN.Length];
+        tPagesBookPT_IT = new RectTransform[pagesBookPT_IT.Length];
+        tPagesBookPT_PT = new RectTransform[pagesBookPT_PT.Length];
+        tPagesBookPT_ES = new RectTransform[pagesBookPT_ES.Length];
+        tPagesBookPT_SE = new RectTransform[pagesBookPT_SE.Length];
+
+        for (int i = 0; i < pagesBookPT_EN.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookPT_EN.transform);
+            tPagesBookPT_EN[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookPT_EN[i];
+        }
+
+        for (int i = 0; i < pagesBookPT_IT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookPT_IT.transform);
+            tPagesBookPT_IT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookPT_IT[i];
+        }
+
+        for (int i = 0; i < pagesBookPT_PT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookPT_PT.transform);
+            tPagesBookPT_PT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookPT_PT[i];
+        }
+
+        for (int i = 0; i < pagesBookPT_ES.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookPT_ES.transform);
+            tPagesBookPT_ES[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookPT_ES[i];
+        }
+
+        for (int i = 0; i < pagesBookPT_SE.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookPT_SE.transform);
+            tPagesBookPT_SE[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookPT_SE[i];
+        }
+
+
+        //Book ES
+        tPagesBookES_EN = new RectTransform[pagesBookES_EN.Length];
+        tPagesBookES_IT = new RectTransform[pagesBookES_IT.Length];
+        tPagesBookES_PT = new RectTransform[pagesBookES_PT.Length];
+        tPagesBookES_ES = new RectTransform[pagesBookES_ES.Length];
+        tPagesBookES_SE = new RectTransform[pagesBookES_SE.Length];
+
+        for (int i = 0; i < pagesBookES_EN.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookES_EN.transform);
+            tPagesBookES_EN[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookES_EN[i];
+        }
+
+        for (int i = 0; i < pagesBookES_IT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookES_IT.transform);
+            tPagesBookES_IT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookES_IT[i];
+        }
+
+        for (int i = 0; i < pagesBookES_PT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookES_PT.transform);
+            tPagesBookES_PT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookES_PT[i];
+        }
+
+        for (int i = 0; i < pagesBookES_ES.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookES_ES.transform);
+            tPagesBookES_ES[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookES_ES[i];
+        }
+
+        for (int i = 0; i < pagesBookES_SE.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookES_SE.transform);
+            tPagesBookES_SE[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookES_SE[i];
+        }
+
+
+        //Book SE
+        tPagesBookSE_EN = new RectTransform[pagesBookSE_EN.Length];
+        tPagesBookSE_IT = new RectTransform[pagesBookSE_IT.Length];
+        tPagesBookSE_PT = new RectTransform[pagesBookSE_PT.Length];
+        tPagesBookSE_ES = new RectTransform[pagesBookSE_ES.Length];
+        tPagesBookSE_SE = new RectTransform[pagesBookSE_SE.Length];
+
+        for (int i = 0; i < pagesBookSE_EN.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookSE_EN.transform);
+            tPagesBookSE_EN[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookSE_EN[i];
+        }
+
+        for (int i = 0; i < pagesBookSE_IT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookSE_IT.transform);
+            tPagesBookSE_IT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookSE_IT[i];
+        }
+
+        for (int i = 0; i < pagesBookSE_PT.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookSE_PT.transform);
+            tPagesBookSE_PT[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookSE_PT[i];
+        }
+
+        for (int i = 0; i < pagesBookSE_ES.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookSE_ES.transform);
+            tPagesBookSE_ES[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookSE_ES[i];
+        }
+
+        for (int i = 0; i < pagesBookSE_SE.Length; i++)
+        {
+            GameObject tempPage = Instantiate(page, bookSE_SE.transform);
+            tPagesBookSE_SE[i] = tempPage.GetComponent<RectTransform>();
+            tempPage.GetComponent<Image>().sprite = pagesBookSE_SE[i];
+        }
+
+
+        // Books 
+        tPages[0][0] = tPagesBookIT_EN;
+        tPages[0][1] = tPagesBookIT_IT;
+        tPages[0][2] = tPagesBookIT_PT;
+        tPages[0][3] = tPagesBookIT_ES;
+        tPages[0][4] = tPagesBookIT_SE;
+
+        tPages[0][0][0].parent.gameObject.SetActive(false);
+        tPages[0][1][0].parent.gameObject.SetActive(false);
+        tPages[0][2][0].parent.gameObject.SetActive(false);
+        tPages[0][3][0].parent.gameObject.SetActive(false);
+        tPages[0][4][0].parent.gameObject.SetActive(false);
+
+        tPages[1][0] = tPagesBookPT_EN;
+        tPages[1][1] = tPagesBookPT_IT;
+        tPages[1][2] = tPagesBookPT_PT;
+        tPages[1][3] = tPagesBookPT_ES;
+        tPages[1][4] = tPagesBookPT_SE;
+
+        tPages[1][0][0].parent.gameObject.SetActive(false);
+        tPages[1][1][0].parent.gameObject.SetActive(false);
+        tPages[1][2][0].parent.gameObject.SetActive(false);
+        tPages[1][3][0].parent.gameObject.SetActive(false);
+        tPages[1][4][0].parent.gameObject.SetActive(false);
+
+        tPages[2][0] = tPagesBookES_EN;
+        tPages[2][1] = tPagesBookES_IT;
+        tPages[2][2] = tPagesBookES_PT;
+        tPages[2][3] = tPagesBookES_ES;
+        tPages[2][4] = tPagesBookES_SE;
+
+        tPages[2][0][0].parent.gameObject.SetActive(false);
+        tPages[2][1][0].parent.gameObject.SetActive(false);
+        tPages[2][2][0].parent.gameObject.SetActive(false);
+        tPages[2][3][0].parent.gameObject.SetActive(false);
+        tPages[2][4][0].parent.gameObject.SetActive(false);
+
+        tPages[3][0] = tPagesBookSE_EN;
+        tPages[3][1] = tPagesBookSE_IT;
+        tPages[3][2] = tPagesBookSE_PT;
+        tPages[3][3] = tPagesBookSE_ES;
+        tPages[3][4] = tPagesBookSE_SE;
+
+        tPages[3][0][0].parent.gameObject.SetActive(false);
+        tPages[3][1][0].parent.gameObject.SetActive(false);
+        tPages[3][2][0].parent.gameObject.SetActive(false);
+        tPages[3][3][0].parent.gameObject.SetActive(false);
+        tPages[3][4][0].parent.gameObject.SetActive(false);
     }
 
     public void _StartButtonClicked(int indexScene)
@@ -214,8 +636,10 @@ public class UIManager_SM : MonoBehaviour
             // ****
             allBooksPanel.SetActive(false);
             buttonBookSelectedPanel[indexBookSelected].SetActive(false);
+            tPages[indexBookSelected][indexLanguage][0].parent.gameObject.SetActive(false);
             buttonsBooksPanel.SetActive(false);
             buttonsBooksPanel.SetActive(true);
+            handGuide.SetActive(true);
             //buttonCloseBooksPanel.SetActive(true);
         }
 
@@ -233,15 +657,16 @@ public class UIManager_SM : MonoBehaviour
             buttonsBooksPanel.SetActive(false);
             //buttonCloseBooksPanel.SetActive(false);
 
-            for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
-            {
-                if (i == indexBook)
-                {
-                    buttonBookSelectedPanel[i].SetActive(true);
-                    allBooksPanel.SetActive(true);
-                    indexBookSelected = indexBook;
-                }
-            }
+            /*            for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
+                        {
+                            if (i == indexBook)
+                            {*/
+            buttonBookSelectedPanel[indexBook].SetActive(true);
+            tPages[indexBook][indexLanguage][0].parent.gameObject.SetActive(true);
+            allBooksPanel.SetActive(true);
+            indexBookSelected = indexBook;
+            /* }
+         }*/
         }
     }
 
@@ -257,6 +682,7 @@ public class UIManager_SM : MonoBehaviour
             buttonsBooksPanel.SetActive(false);
             buttonsBooksPanel.SetActive(true);
             buttonCloseBooksPanel.SetActive(true);
+            
         }
     }
 
@@ -278,8 +704,8 @@ public class UIManager_SM : MonoBehaviour
             // Play Sound
             audioManager.PlayClip(0, 0.6f);
             // ****
-            Application.OpenURL("https://colourfulchildren.eu/");
             //Application.OpenURL("market://details?id=" + gamesLink[index]);
+            Application.OpenURL("https://colourfulchildren.eu/");
         }
     }
 
@@ -314,9 +740,12 @@ public class UIManager_SM : MonoBehaviour
         }
     }
 
-    public void UpdateLanguage(int indexLanguage)
+    public void UpdateLanguage(int index)
     {
+        // Change Info Text
+        textsInfo[index].SetActive(true);
 
+        indexLanguage = index;
     }
 
     private void InitUpdatePages()
@@ -325,19 +754,19 @@ public class UIManager_SM : MonoBehaviour
         // Change Paint
         int t = 0;
 
-        for (int i = 0; i < tPages[bookSelected].Length; i++)
+        for (int i = 0; i < tPages[bookSelected][indexLanguage].Length; i++)
         {
             if (0 == i)
             {
-                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[2], tPages[bookSelected][i].anchoredPosition.y);
+                tPages[bookSelected][indexLanguage][i].anchoredPosition = new Vector2(xPages[2], tPages[bookSelected][indexLanguage][i].anchoredPosition.y);
             }
             else if (1 == i)
             {
-                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[3], tPages[bookSelected][i].anchoredPosition.y);
+                tPages[bookSelected][indexLanguage][i].anchoredPosition = new Vector2(xPages[3], tPages[bookSelected][indexLanguage][i].anchoredPosition.y);
             }
             else
             {
-                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][i].anchoredPosition.y);
+                tPages[bookSelected][indexLanguage][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][indexLanguage][i].anchoredPosition.y);
             }
 
         }
@@ -355,7 +784,7 @@ public class UIManager_SM : MonoBehaviour
         int third = t - 1;
         int fourth = t - 2;
 
-        for (int i = 0; i < tPages[bookSelected].Length; i++)
+        for (int i = 0; i < tPages[bookSelected][indexLanguage].Length; i++)
         {
             if (t == i)
             {
@@ -367,11 +796,11 @@ public class UIManager_SM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[2], time).setEase(curve).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[2], time).setEase(curve).setOnComplete(CanChangePage);
                 }
                 else
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[2], time).setEase(easeType).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[2], time).setEase(easeType).setOnComplete(CanChangePage);
                 }
             }
             else if (first == i)
@@ -384,11 +813,11 @@ public class UIManager_SM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[3], time).setEase(curve).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[3], time).setEase(curve).setOnComplete(CanChangePage);
                 }
                 else
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[3], time).setEase(easeType).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[3], time).setEase(easeType).setOnComplete(CanChangePage);
                 }
             }
             else if (second == i)
@@ -401,11 +830,11 @@ public class UIManager_SM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[4], time).setEase(curve).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[4], time).setEase(curve).setOnComplete(CanChangePage);
                 }
                 else
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[4], time).setEase(easeType).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[4], time).setEase(easeType).setOnComplete(CanChangePage);
                 }
             }
             else if (third == i)
@@ -418,11 +847,11 @@ public class UIManager_SM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[1], time).setEase(curve).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[1], time).setEase(curve).setOnComplete(CanChangePage);
                 }
                 else
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[1], time).setEase(easeType).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[1], time).setEase(easeType).setOnComplete(CanChangePage);
                 }
             }
             else if (fourth == i)
@@ -435,17 +864,17 @@ public class UIManager_SM : MonoBehaviour
                 }
                 if (easeType == LeanTweenType.animationCurve)
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[0], time).setEase(curve).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[0], time).setEase(curve).setOnComplete(CanChangePage);
                 }
                 else
                 {
-                    LeanTween.moveX(tPages[bookSelected][i], xPages[0], time).setEase(easeType).setOnComplete(CanChangePage);
+                    LeanTween.moveX(tPages[bookSelected][indexLanguage][i], xPages[0], time).setEase(easeType).setOnComplete(CanChangePage);
                 }
             }
             else
             {
-                LeanTween.cancel(tPages[bookSelected][i]);
-                tPages[bookSelected][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][i].anchoredPosition.y);
+                LeanTween.cancel(tPages[bookSelected][indexLanguage][i]);
+                tPages[bookSelected][indexLanguage][i].anchoredPosition = new Vector2(xPages[4], tPages[bookSelected][indexLanguage][i].anchoredPosition.y);
             }
         }
 
@@ -463,19 +892,19 @@ public class UIManager_SM : MonoBehaviour
         if (canChange)
         {
             canChange = false;
-            if (currentIndexPage < tPages[bookSelected].Length - 1)
+            if (currentIndexPage < tPages[bookSelected][indexLanguage].Length - 1)
             {
                 currentIndexPage++;
                 UpdatePage(currentIndexPage);
                 // Play Sound
                 audioManager.PlayClip(0, 0.4f);
                 // ****
-                audioManager.PlayClip(10, 0.6f);
+                audioManager.PlayClip(10, 0.8f);
                 // ****
             }
             else
             {
-                currentIndexPage = tPages[bookSelected].Length - 1;
+                currentIndexPage = tPages[bookSelected][indexLanguage].Length - 1;
                 canChange = true;
             }
 
@@ -495,7 +924,7 @@ public class UIManager_SM : MonoBehaviour
                 // Play Sound
                 audioManager.PlayClip(0, 0.4f);
                 // ****
-                audioManager.PlayClip(10, 0.6f);
+                audioManager.PlayClip(10, 0.8f);
                 // ****
             }
             else
@@ -522,6 +951,7 @@ public class UIManager_SM : MonoBehaviour
         {
             canDrag = true;
             positiveDrag = Input.mousePosition.x > lastDragPosition.x;
+            handGuide.SetActive(false);
         }
 
 
@@ -532,19 +962,19 @@ public class UIManager_SM : MonoBehaviour
                 if (canChange)
                 {
                     canChange = false;
-                    if (currentIndexPage < tPages[bookSelected].Length - 1)
+                    if (currentIndexPage < tPages[bookSelected][indexLanguage].Length - 1)
                     {
                         currentIndexPage++;
                         UpdatePage(currentIndexPage);
                         // Play Sound
                         audioManager.PlayClip(1, 0.4f);
                         // ****
-                        audioManager.PlayClip(10, 0.6f);
+                        audioManager.PlayClip(10, 0.8f);
                         // ****
                     }
                     else
                     {
-                        currentIndexPage = tPages[bookSelected].Length - 1;
+                        currentIndexPage = tPages[bookSelected][indexLanguage].Length - 1;
                         canChange = true;
                     }
                 }
@@ -561,7 +991,7 @@ public class UIManager_SM : MonoBehaviour
                         // Play Sound
                         audioManager.PlayClip(1, 0.4f);
                         // ****
-                        audioManager.PlayClip(10, 0.6f);
+                        audioManager.PlayClip(10, 0.8f);
                         // ****
                     }
                     else

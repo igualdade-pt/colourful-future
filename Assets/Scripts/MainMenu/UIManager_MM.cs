@@ -26,6 +26,9 @@ public class UIManager_MM : MonoBehaviour
     [Header("Colour Menu")]
     [Space]
     [SerializeField]
+    private GameObject handGuide;
+
+    [SerializeField]
     private GameObject paintBasicPanel;
 
     [SerializeField]
@@ -63,6 +66,7 @@ public class UIManager_MM : MonoBehaviour
         colourPanel.SetActive(false);
         mainPanel.SetActive(true);
         loadingPanel.SetActive(false);
+        handGuide.SetActive(true);
     }
 
     private void Start()
@@ -75,103 +79,6 @@ public class UIManager_MM : MonoBehaviour
         tPaints[1] = tPaintsExpert;
     }
 
-/*
-    public void _InformationButtonClicked()
-    {
-        if (!informationPanel.activeSelf)
-        {
-            informationPanel.SetActive(true);
-        }
-    }
-
-    public void _CloseInformationButtonClicked()
-    {
-        if (informationPanel.activeSelf)
-        {
-            informationPanel.SetActive(false);
-        }
-    }
-
-    public void _LanguageButtonClicked(int indexScene)
-    {
-        Debug.Log("Language Clicked, Index Scene: " + indexScene);
-
-        mainMenuManager.LoadScene(indexScene);
-    }
-
-    public void _AgeButtonClicked(int indexScene)
-    {
-        Debug.Log("Age Clicked, Index Scene: " + indexScene);
-
-        mainMenuManager.LoadScene(indexScene);
-    }
-
-    public void _BooksButtonClicked()
-    {
-        if (!booksPanel.activeSelf)
-        {
-            allBooksPanel.SetActive(false);
-            booksPanel.SetActive(true);
-            buttonsBooksPanel.SetActive(true);
-        }
-    }
-
-    public void _CloseBooksButtonClicked()
-    {
-        if (booksPanel.activeSelf)
-        {
-            booksPanel.SetActive(false);
-        }
-    }
-
-    public void _BookButtonSelectedClicked(int indexBook)
-    {
-        if (booksPanel.activeSelf)
-        {
-            buttonsBooksPanel.SetActive(false);
-            buttonCloseBooksPanel.SetActive(false);
-
-            for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
-            {
-                if (i == indexBook)
-                {
-                    buttonBookSelectedPanel[i].SetActive(true);
-                    allBooksPanel.SetActive(true);
-                    indexBookSelected = indexBook;
-                }
-            }
-        }
-    }
-
-    public void _CloseBookButtonSelectedClicked()
-    {
-        if (booksPanel.activeSelf)
-        {
-            allBooksPanel.SetActive(false);
-            buttonBookSelectedPanel[indexBookSelected].SetActive(false);
-            buttonsBooksPanel.SetActive(false);
-            buttonsBooksPanel.SetActive(true);
-            buttonCloseBooksPanel.SetActive(true);
-        }
-    }
-
-    public void _SoundButtonClicked()
-    {
-        if (isSoundActive)
-        {
-            //soundButton.image.sprite = spriteOffOnSound[0];
-            Debug.Log("sound is OFF, value:" + isSoundActive);
-            //audioManager.SetVolume(isSoundActive);
-            isSoundActive = false;
-        }
-        else
-        {
-            //soundButton.image.sprite = spriteOffOnSound[1];
-            Debug.Log("sound is ON, value:" + isSoundActive);
-            //audioManager.SetVolume(isSoundActive);
-            isSoundActive = true;
-        }
-    }*/
 
     public void _ColourButtonClicked()
     {
@@ -197,6 +104,7 @@ public class UIManager_MM : MonoBehaviour
         // ****
         colourPanel.SetActive(false);
         mainPanel.SetActive(true);
+        handGuide.SetActive(true);
     }
 
     public void _GameButtonClicked(int indexGame)
@@ -387,6 +295,7 @@ public class UIManager_MM : MonoBehaviour
         {
             canDrag = true;
             positiveDrag = Input.mousePosition.y > lastDragPosition.y;
+            handGuide.SetActive(false);
         }
         
 
