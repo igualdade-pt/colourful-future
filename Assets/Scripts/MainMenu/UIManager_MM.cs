@@ -11,7 +11,6 @@ public class UIManager_MM : MonoBehaviour
 
     private AudioManager audioManager;
 
-
     [Header("Panels")]
     [Space]
     [SerializeField]
@@ -73,6 +72,7 @@ public class UIManager_MM : MonoBehaviour
     {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
         audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+
         canChange = true;
 
         tPaints[0] = tPaintsBasic;

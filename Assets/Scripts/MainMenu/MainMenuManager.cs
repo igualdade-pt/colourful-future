@@ -12,6 +12,8 @@ public class MainMenuManager : MonoBehaviour
 
     private GameInstanceScript gameInstance;
 
+    private MusicManagerScript musicManager;
+
     [SerializeField]
     private int indexGameplayScene = 3;
 
@@ -61,6 +63,7 @@ public class MainMenuManager : MonoBehaviour
             gameInstance.CameFromPainting = false;
         }
 
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
     }
 
     public void LoadScene(int indexScene)
@@ -71,6 +74,7 @@ public class MainMenuManager : MonoBehaviour
     public void LoadAsyncGamePlay(int indexGame)
     {
         gameInstance.GameIndex = indexGame;
+        musicManager.PlayMusicGame();
         StartCoroutine(StartLoadAsyncScene(indexGameplayScene));
     }
 

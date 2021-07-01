@@ -259,7 +259,14 @@ public class GameplayManager : MonoBehaviour
         }
 
         uiManager_GM = FindObjectOfType<UIManager_GM>().GetComponent<UIManager_GM>();
+        uiManager_GM.UpdateLanguage(indexLanguage);
+
         audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
+
+        musicManager.LowMusic();
+
         // Set Only the Game Selected
         switch (indexGameSelected)
         {
@@ -325,10 +332,6 @@ public class GameplayManager : MonoBehaviour
             default:
                 break;
         }        
-
-        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
-
-        musicManager.LowMusic();
     }
 
 
@@ -441,12 +444,14 @@ public class GameplayManager : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(4, 0.8f);
         // ****
+        yield return new WaitForSeconds(1f);
         playerScript.GameStarted(true);
         StartCoroutine(CountdownSec());
     }
 
     public void CheckingCard(GameObject cardChosen)
     {
+        playerScript.GameStarted(false);
         StopAllCoroutines();
         var card = cardChosen.GetComponent<ConnectCards_Script>();
         if (selectedCharacterIndexes[numberOfMoves] == card.CardIndex)
@@ -456,7 +461,7 @@ public class GameplayManager : MonoBehaviour
             if (numberOfRightConnects <= 0)
             {
                 // Play Sound
-                audioManager.PlayClip(indexSoundVictory, 0.6f);
+                audioManager.PlayClip(indexSoundVictory, 0.8f);
                 // ****
                 uiManager_GM.UpdateCorrectsMoves(totalNumberOfRightConnects);
                 uiManager_GM.SetGameEndedPanel(true);
@@ -468,7 +473,7 @@ public class GameplayManager : MonoBehaviour
                 // ****
                 StartCoroutine(NextCard());
             }
-            playerScript.GameStarted(false);
+            
         }
         else
         {
@@ -478,7 +483,7 @@ public class GameplayManager : MonoBehaviour
             if (numberOfAttemptsToConnect <= 0)
             {
                 // Play Sound
-                audioManager.PlayClip(indexSoundLost, 0.6f);
+                audioManager.PlayClip(indexSoundLost, 0.8f);
                 // ****
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
@@ -499,7 +504,7 @@ public class GameplayManager : MonoBehaviour
                 // ****
                 StartCoroutine(NextCard());
             }
-            playerScript.GameStarted(false);
+            //playerScript.GameStarted(false);
         }
     }
 
@@ -542,9 +547,8 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenCards - 1);
         NextDragConnect();
 
+        yield return new WaitForSeconds(1f);
         StartCoroutine(CountdownSec());
-
-        yield return new WaitForSeconds(0.5f);
         playerScript.GameStarted(true);
     }
 
@@ -928,7 +932,7 @@ public class GameplayManager : MonoBehaviour
             if (numberOfCards == numberOfRightPairs * 2)
             {
                 // Play Sound
-                audioManager.PlayClip(indexSoundVictory, 0.6f);
+                audioManager.PlayClip(indexSoundVictory, 0.8f);
                 // ****
                 uiManager_GM.SetGameEndedPanel(true);
                 playerScript.GameStarted(false);
@@ -944,7 +948,7 @@ public class GameplayManager : MonoBehaviour
             if (numberOfAttempts <= 0)
             {
                 // Play Sound
-                audioManager.PlayClip(indexSoundLost, 0.6f);
+                audioManager.PlayClip(indexSoundLost, 0.8f);
                 // ****
                 uiManager_GM.UpdateAttempts(0);
                 uiManager_GM.SetGameEndedPanel(true);
@@ -976,6 +980,11 @@ public class GameplayManager : MonoBehaviour
     public void LoadSelectedScene(int indexSelected)
     {
         musicManager.UpMusic();
+
+        if (indexSelected == 3)
+        {
+            musicManager.PlayMusicMenu();
+        }
 
         if (indexGameSelected == 0)
         {
