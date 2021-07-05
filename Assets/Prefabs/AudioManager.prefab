@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 64b655c6e0ea3a248b8eb0061a766626, type: 3}
   - {fileID: 8300000, guid: a52c645bcc7e3b44eb07841a5d5cb721, type: 3}
   - {fileID: 8300000, guid: 59a017fe4beb8b34b8cd4539e9e709e3, type: 3}
-  - {fileID: 8300000, guid: 0716c9defb12d6e48ae33c147c9b3cbd, type: 3}
+  - {fileID: 8300000, guid: 2b28f77d5c14cfc41a360dcb1a45da1f, type: 3}
   - {fileID: 8300000, guid: c47329d94b0624d4a9d6e3a17fdd9d45, type: 3}
   buttonVolume: 0.2
 --- !u!82 &7318535270373748891

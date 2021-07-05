@@ -11,6 +11,8 @@ public class UIManager_MM : MonoBehaviour
 
     private AudioManager audioManager;
 
+    private MusicManagerScript musicManager;
+
     [Header("Panels")]
     [Space]
     [SerializeField]
@@ -57,6 +59,7 @@ public class UIManager_MM : MonoBehaviour
     private Vector2 lastDragPosition;
     private bool positiveDrag;
     private bool canDrag;
+    private bool canShowHand;
     private int indexDificulty;
     
 
@@ -72,6 +75,7 @@ public class UIManager_MM : MonoBehaviour
     {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
         audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
 
         canChange = true;
 
@@ -84,6 +88,8 @@ public class UIManager_MM : MonoBehaviour
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
+
+        musicManager.PlayMusicGame();
         // ****
         mainPanel.SetActive(false);
         colourPanel.SetActive(true);
@@ -101,6 +107,8 @@ public class UIManager_MM : MonoBehaviour
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
+
+        musicManager.PlayMusicMenu();
         // ****
         colourPanel.SetActive(false);
         mainPanel.SetActive(true);
@@ -111,6 +119,8 @@ public class UIManager_MM : MonoBehaviour
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
+
+        musicManager.PlayMusicGame();
         // ****
         loadingPanel.SetActive(true);
         mainMenuManager.LoadAsyncGamePlay(indexGame);
@@ -120,6 +130,7 @@ public class UIManager_MM : MonoBehaviour
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
+        loadingPanel.SetActive(true);
         // ****
         mainMenuManager.LoadScene(indexScene);
     }
@@ -204,37 +215,66 @@ public class UIManager_MM : MonoBehaviour
                 t = yPaints.Length - 1;
             }
 
-            if (t == 1 || t == 2 || t == 3 || t == 4 || t == 5)
-            {
-                float time = Time.time - previousTime - 0.1f;
-                time = Mathf.Clamp(time, 0f, 0.5f);
-                if (time < 0.18)
+/*            if (positiveDrag)
+            {*/
+                if (t == 1 || t == 2 || t == 3)
                 {
-                    time = 0;
-                }
-                if (easeType == LeanTweenType.animationCurve)
-                {
-                    LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
+                    float time = Time.time - previousTime - 0.1f;
+                    time = Mathf.Clamp(time, 0f, 0.5f);
+                    if (time < 0.18)
+                    {
+                        time = 0;
+                    }
+                    if (easeType == LeanTweenType.animationCurve)
+                    {
+                        LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
+                    }
+                    else
+                    {
+                        LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
+                    }
                 }
                 else
                 {
-                    LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
+                    LeanTween.cancel(tPaints[indexDificulty][i]);
+                    tPaints[indexDificulty][i].anchoredPosition = new Vector2(tPaints[indexDificulty][i].anchoredPosition.x, yPaints[t]);
                 }
-            }
+            /*}
             else
             {
-                LeanTween.cancel(tPaints[indexDificulty][i]);
-                tPaints[indexDificulty][i].anchoredPosition = new Vector2(tPaints[indexDificulty][i].anchoredPosition.x, yPaints[t]);
-            }
+                if (t == 1 || t == 2 || t == 3)
+                {
+                    float time = Time.time - previousTime - 0.1f;
+                    time = Mathf.Clamp(time, 0f, 0.5f);
+                    if (time < 0.18)
+                    {
+                        time = 0;
+                    }
+                    if (easeType == LeanTweenType.animationCurve)
+                    {
+                        LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(curve).setOnComplete(CanChangePaint);
+                    }
+                    else
+                    {
+                        LeanTween.moveY(tPaints[indexDificulty][i], yPaints[t], time).setEase(easeType).setOnComplete(CanChangePaint);
+                    }
+                }
+                else
+                {
+                    LeanTween.cancel(tPaints[indexDificulty][i]);
+                    tPaints[indexDificulty][i].anchoredPosition = new Vector2(tPaints[indexDificulty][i].anchoredPosition.x, yPaints[t]);
+                }
+            }*/
         }
-
-
-
     }
 
     private void CanChangePaint()
     {
         canChange = true;
+        if (canShowHand)
+        {
+            handGuide.SetActive(true);
+        }
     }
 
     public void _DownButtonClick()
@@ -284,6 +324,7 @@ public class UIManager_MM : MonoBehaviour
     public void _BeginDrag()
     {
         lastDragPosition = Input.mousePosition;
+        canShowHand = false;
         //lastDragPosition = Input.GetTouch(0).position;
     }
 
@@ -349,5 +390,6 @@ public class UIManager_MM : MonoBehaviour
     public void _EndDrag()
     {
         canDrag = true;
+        canShowHand = true;
     }
 }

@@ -60,9 +60,9 @@ MonoBehaviour:
   musicLow: {fileID: 1627934241713985707, guid: 3711cb9eca327d84f9ccfd70f1338e28, type: 2}
   musicUp: {fileID: 9119198715906977599, guid: 3711cb9eca327d84f9ccfd70f1338e28, type: 2}
   fadeTime: 8
-  fadeTimeBetweenMusics: 3
+  fadeTimeBetweenMusics: 2
   overlap: 5
-  overlapBetweenMusics: 2
+  overlapBetweenMusics: 1
   fadeTimeStopMusic: 2
   fadeTimeResumeMusic: 2
   fadeTimeLowMusic: 1

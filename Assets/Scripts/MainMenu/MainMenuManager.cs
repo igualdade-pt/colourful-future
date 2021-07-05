@@ -68,13 +68,14 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadScene(int indexScene)
     {
-        SceneManager.LoadScene(indexScene);
+        //SceneManager.LoadScene(indexScene);
+        StartCoroutine(StartLoadAsyncScene(indexScene));
     }
 
     public void LoadAsyncGamePlay(int indexGame)
     {
         gameInstance.GameIndex = indexGame;
-        musicManager.PlayMusicGame();
+        //musicManager.PlayMusicGame();
         StartCoroutine(StartLoadAsyncScene(indexGameplayScene));
     }
 
