@@ -981,7 +981,7 @@ public class GameplayManager : MonoBehaviour
     {
         musicManager.UpMusic();
 
-        if (indexSelected == 3)
+        if (indexSelected == 3 && indexGameSelected != 0)
         {
             musicManager.PlayMusicMenu();
         }

@@ -120,7 +120,11 @@ public class UIManager_MM : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
 
-        musicManager.PlayMusicGame();
+        if (indexGame != 0)
+        {
+            musicManager.PlayMusicGame();
+        }
+
         // ****
         loadingPanel.SetActive(true);
         mainMenuManager.LoadAsyncGamePlay(indexGame);
