@@ -10,7 +10,6 @@ public class Player_Script : MonoBehaviour
     [SerializeField]
     private bool gameplayTest = false;
 
-    [SerializeField]
     private bool mobile = false;
 
     private GameplayManager gameplayManager;
@@ -53,6 +52,13 @@ public class Player_Script : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_WEBGL
+        mobile = false;
+#endif
+#if !UNITY_WEBGL
+        mobile = true;
+#endif
+
         if (!gameplayTest)
         {
             gameInstance = FindObjectOfType<GameInstanceScript>().GetComponent<GameInstanceScript>();
