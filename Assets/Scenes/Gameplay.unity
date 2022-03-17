@@ -7489,7 +7489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11469012, guid: 556221c0269df420488f5cebb609a2d5, type: 3}
       propertyPath: forceClearOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11469012, guid: 556221c0269df420488f5cebb609a2d5, type: 3}
       propertyPath: camMaxZoomInPercent
