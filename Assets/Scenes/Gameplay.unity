@@ -4196,7 +4196,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 79.82, y: 0}
+  m_AnchoredPosition: {x: 1179.9996, y: 0}
   m_SizeDelta: {x: 1760, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &640479052
@@ -5117,7 +5117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayTest: 0
-  mobile: 1
   indexGameSelected: 2
   brushLinePool: {fileID: 0}
   brush: {fileID: 0}
@@ -9852,7 +9851,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayTest: 0
-  mobile: 1
   indexGameSelected: 1
   brushLinePool: {fileID: 2020703882}
   brush: {fileID: 5885558827282603598, guid: 9007a070c42ec804b8570dd5cc4d0432, type: 3}
