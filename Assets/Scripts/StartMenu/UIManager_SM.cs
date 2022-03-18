@@ -60,6 +60,13 @@ public class UIManager_SM : MonoBehaviour
     private GameObject[] textsInfo;
 
     [SerializeField]
+    private GameObject[] textsGameItaly;
+    [SerializeField]
+    private GameObject[] textsGamePortugal;
+    [SerializeField]
+    private GameObject[] textsGameSweden;
+
+    [SerializeField]
     private Image coverBookIT;
 
     [SerializeField]
@@ -769,6 +776,10 @@ public class UIManager_SM : MonoBehaviour
     {
         // Change Info Text
         textsInfo[index].SetActive(true);
+
+        //textsGameItaly[index].SetActive(true);
+        //textsGamePortugal[index].SetActive(true);
+        //textsGameSweden[index].SetActive(true);
 
         indexLanguage = index;
 
